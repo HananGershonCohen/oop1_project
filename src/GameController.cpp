@@ -5,7 +5,7 @@ GameController::GameController() : m_firstWindow(20, 10) {}
 
 void GameController::run()
 {
-	while (m_firstWindow.m_window.isOpen())
+	/*while (m_firstWindow.m_window.isOpen())
 	{
 		sf::Event event;
 		while (m_firstWindow.m_window.pollEvent(event))
@@ -15,5 +15,5 @@ void GameController::run()
 		}
 		m_firstWindow.m_window.clear();
 		m_firstWindow.m_window.display();
-	}
+	}*/
 }
