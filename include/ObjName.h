@@ -4,5 +4,6 @@ enum ObjName
 {
     Exit, // default = 0
     Start,
-    Help
+    Help,
+    Font
 };

@@ -1,13 +1,21 @@
 #include <iostream>
-#include"GameController.h"
 #include "Windows.h"
-#include "TextureManager.h"
+#include "FirstWindow.h"
 int main()
 {
+	FirstWindow window;
 
-	//GameController().run();
-	Windows window(10, 10);
-	TextureManager m_texture;
+	window.customerChoice();
 
-	return 0;
+	if (window.need2exit())
+	{
+		std::cout << "Exiting For The Game \n";
+	}
+	else if (window.need2start())
+	{
+		std::cout << "Starting The Game\n";
+	}
+
+
+	return EXIT_SUCCESS;
 }

@@ -1,8 +1,13 @@
-#include "TextureManager.h"
+#include "SfmlMananger.h"
 #include <iostream>
 
-TextureManager::TextureManager()
+SfmlMananger::SfmlMananger()
 {
+
+	// load the Font from file --> into sf::Font.
+	if (!m_font.loadFromFile("CENSCBK.ttf"))
+		std::cerr << "Failed to load CENCBK.ttf\n";
+
 	// load the picture from file --> into Texture.
 	if (!m_ExitTex.loadFromFile("Exit.png"))
 		std::cerr << "Failed to load Exit.png\n";
@@ -10,11 +15,12 @@ TextureManager::TextureManager()
 		std::cerr << "Failed to load Help.png\n";
 	if (!m_StartTex.loadFromFile("Start.png"))
 		std::cerr << "Failed to load Start.png\n";
+	
 
-	std::cout << " c-tor TextureManager: Textures loaded successfully\n";
+	std::cout << " c-tor SfmlMananger: SfmlMananger loaded successfully\n";
 }
 
-sf::Texture& TextureManager::getTexture(ObjName objName)
+sf::Texture& SfmlMananger::getTexture(ObjName objName) 
 {
 	// return refernce of texture according the ObgName(Enum).
 	switch (objName)
@@ -35,3 +41,23 @@ sf::Texture& TextureManager::getTexture(ObjName objName)
 		break;
 	}
 }
+
+sf::Text SfmlMananger::getText(ObjName objName) const
+{
+	sf::Text textTemp;
+
+	switch (objName)
+	{
+	case Font:
+	textTemp.setFont(m_font);
+	return textTemp;
+	break;
+
+	default:
+		std::cerr << "Error: ObjName not found\n";
+		throw std::invalid_argument("Invalid ObjName");
+		break;
+	}
+
+}
+
