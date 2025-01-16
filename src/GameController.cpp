@@ -2,10 +2,14 @@
 //--------------------------------------------------------
 void GameController::run()
 {
+
+	GameBoard gameBoard(0, 0);
+	gameBoard.create(15, 15, 0);
+	
 	FirstWindow window(m_textureManager);
 	handleFirstWindow(window);
 
-
+	
 }
 //--------------------------------------------------------
 void GameController::handleFirstWindow(FirstWindow& window) const
@@ -15,6 +19,8 @@ void GameController::handleFirstWindow(FirstWindow& window) const
 	if (window.need2exit())
 	{
 		std::cout << "Exiting For The Game \n";
+		exit(0);
+
 	}
 	else if (window.need2start())
 	{
