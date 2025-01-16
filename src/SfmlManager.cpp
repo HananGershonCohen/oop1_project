@@ -1,7 +1,7 @@
-#include "SfmlMananger.h"
+#include "SfmlManager.h"
 #include <iostream>
 
-SfmlMananger::SfmlMananger()
+SfmlManager::SfmlManager()
 {
 
 	// load the Font from file --> into sf::Font.
@@ -20,7 +20,7 @@ SfmlMananger::SfmlMananger()
 	std::cout << " c-tor SfmlMananger: SfmlMananger loaded successfully\n";
 }
 
-sf::Texture& SfmlMananger::getTexture(ObjName objName) 
+sf::Texture& SfmlManager::getTexture(ObjName objName) 
 {
 	// return refernce of texture according the ObgName(Enum).
 	switch (objName)
@@ -42,7 +42,7 @@ sf::Texture& SfmlMananger::getTexture(ObjName objName)
 	}
 }
 
-sf::Text SfmlMananger::getText(ObjName objName) const
+sf::Text SfmlManager::getText(ObjName objName) const
 {
 	sf::Text textTemp;
 

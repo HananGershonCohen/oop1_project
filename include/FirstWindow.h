@@ -3,12 +3,12 @@
 #include "Button.h"
 #include "ObjName.h"
 #include <vector>
-#include"SfmlMananger.h"
+#include"SfmlManager.h"
 
 class FirstWindow : public Windows
 {
 public:
-	FirstWindow(unsigned int = 20, unsigned int = 10);// =15 for default size of window
+	FirstWindow(unsigned int = 20, unsigned int = 20);// =15 for default size of window
 	void draw();
 	void customerChoice();
 
@@ -17,7 +17,7 @@ public:
 
 private:
 	//--- data members----
-	SfmlMananger m_sfmlManager{};
+	SfmlManager m_sfmlManager{};
 	ObjName m_objName{};
 	std::vector<Button> m_buttons;
 	bool m_need2exit = false;
@@ -25,5 +25,8 @@ private:
 
 	//--- functions----
 	sf::Text readHelpFromFile()const;
+	void showHelp(sf::Text&);
+	void wrapText(sf::Text& text, float maxWidth);
+
 
 };

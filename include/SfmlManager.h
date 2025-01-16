@@ -2,10 +2,10 @@
 #include <SFML/Graphics.hpp>
 #include "ObjName.h"
 
-class SfmlMananger
+class SfmlManager
 {
 public:
-	SfmlMananger(); // c-tor load file to sf objects.
+	SfmlManager(); // c-tor load file to sf objects.
 	sf::Texture& getTexture(ObjName); // return refernce of texture according the ObgName(Enum). 
 	sf::Text getText(ObjName) const; // return refernce of font.
 
