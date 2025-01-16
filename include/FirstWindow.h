@@ -8,7 +8,7 @@
 class FirstWindow : public Windows
 {
 public:
-	FirstWindow(unsigned int = 20, unsigned int = 20);// =15 for default size of window
+	FirstWindow(SfmlManager&);// =15 for default size of window
 	void draw();
 	void customerChoice();
 

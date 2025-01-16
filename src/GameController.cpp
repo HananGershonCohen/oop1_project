@@ -1,19 +1,23 @@
 #include "GameController.h"
-
-GameController::GameController() : m_firstWindow(20, 10) {}
-
-
+//--------------------------------------------------------
 void GameController::run()
 {
-	/*while (m_firstWindow.m_window.isOpen())
+	FirstWindow window(m_textureManager);
+	handleFirstWindow(window);
+
+
+}
+//--------------------------------------------------------
+void GameController::handleFirstWindow(FirstWindow& window) const
+{
+	window.customerChoice();
+
+	if (window.need2exit())
 	{
-		sf::Event event;
-		while (m_firstWindow.m_window.pollEvent(event))
-		{
-			if (event.type == sf::Event::Closed)
-				m_firstWindow.m_window.close();
-		}
-		m_firstWindow.m_window.clear();
-		m_firstWindow.m_window.display();
-	}*/
+		std::cout << "Exiting For The Game \n";
+	}
+	else if (window.need2start())
+	{
+		std::cout << "Starting The Game\n";
+	}
 }

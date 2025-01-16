@@ -5,8 +5,8 @@
 #include <thread>
 #include <chrono>
 
-FirstWindow::FirstWindow(unsigned int height, unsigned int width)
-	: Windows(height, width)
+FirstWindow::FirstWindow(SfmlManager& sfmlManager)
+	: Windows(15, 15), m_sfmlManager{ sfmlManager }
 {
 	//analyze the buttons	
 	sf::Sprite startSprite(m_sfmlManager.getTexture(ObjName::Start));
@@ -118,6 +118,8 @@ void FirstWindow::showHelp(sf::Text& text)
 {
 	// show the ALL text on the window 
 	wrapText(text, m_window.getSize().x - 20); // 20 is some padding from the edges
+
+	
 
 	// create new button.
 	sf::Sprite ExitSprite(m_sfmlManager.getTexture(ObjName::Exit));

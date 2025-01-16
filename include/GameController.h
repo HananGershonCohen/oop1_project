@@ -1,15 +1,15 @@
 #pragma once
-#include <SFML/Graphics.hpp>
 #include "FirstWindow.h"
+#include <SfmlManager.h>
 
 class GameController
 {
 public:
-	GameController();
-	void run();
 
+	void run();
 private:
-	FirstWindow m_firstWindow;
+	SfmlManager m_textureManager{};
+	void handleFirstWindow(FirstWindow&) const;
 
 };
 
