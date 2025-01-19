@@ -8,6 +8,7 @@ enum ObjName
     Font,
     Wall,
     E_Robot,
-    Rock
+    Rock,
+    E_Guard
 };
 

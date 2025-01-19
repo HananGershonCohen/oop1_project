@@ -10,6 +10,7 @@ public:
 	void draw(sf::RenderWindow&);
 	ObjName getType() const { return m_type; }
 	bool touch(sf::Vector2f& location) const { return m_image.getGlobalBounds().contains(location); }
+
 protected:
 	const int m_pixelSize;
 	sf::Sprite m_image;

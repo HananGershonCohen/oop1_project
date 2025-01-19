@@ -33,5 +33,6 @@ void MovingObject::move(float deltaTime)
 {
 
     m_image.move(m_direction.x * (3 * m_pixelSize * deltaTime), m_direction.y * (3 * m_pixelSize * deltaTime));
-
+   // std::cout << m_location.x << " , " << m_location.y << std::endl;
+   
 }

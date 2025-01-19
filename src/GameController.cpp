@@ -2,17 +2,20 @@
 //--------------------------------------------------------
 void GameController::run()
 {
-
+	// ------ need do write this FirstWindow in private. ------
 	FirstWindow firstWindow(m_SfmlManager);
 	handleFirstWindow(firstWindow);
 	if (firstWindow.need2exit())
 		return;
+	//---------------------------------------------------
 
 	sf::Clock gameClock;
 	sf::Vector2f loc{ 0,0 };
 	MovingObject tempObj(loc, m_SfmlManager, ObjName::E_Robot);
 	Robot robot(loc, m_SfmlManager); // Add semicolon here
 	GameBoard gameBoard(15, 15);
+
+	Guard guard(loc, m_SfmlManager);
 
 	auto& window = gameBoard.getWindow();
 	sf::Vector2f direction{ 0,0 };
@@ -26,13 +29,20 @@ void GameController::run()
 				window.close();
 			direction = getDirection();
 		}
+		
+
 		auto deltaTime = gameClock.restart().asSeconds();
 		tempObj.setDirection(direction);
-		window.clear();
 		tempObj.move(deltaTime);
+
+		
+
+		window.clear();
 		tempObj.draw(window);
+		guard.draw(window);
 		window.display();
 
+	
 
 	}
 }

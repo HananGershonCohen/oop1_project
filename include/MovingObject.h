@@ -10,7 +10,7 @@ public:
 	void setDirection(sf::Vector2f);
 	void move(float);
 
-private:
+protected:
 	sf::Vector2f m_direction{ 0, 0 };// defult nat moving
 
 };
