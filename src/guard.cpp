@@ -5,7 +5,7 @@ Guard::Guard(sf::Vector2f& location, SfmlManager& SfmlMan) :
 {
 }
 
-void Guard::moveGuard(sf::Vector2f robotLoc)
+void Guard::updateDirection(sf::Vector2f robotLoc)
 {
     auto& guardLoc = m_location;
     sf::Vector2f direction(0, 0);

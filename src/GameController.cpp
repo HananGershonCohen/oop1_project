@@ -33,7 +33,7 @@ void GameController::run()
 			robot.updateDirection();
 		}
 
-		guard.moveGuard(robot.getLocation());
+		guard.updateDirection(robot.getLocation());
 
 		auto deltaTime = gameClock.restart().asSeconds();
 
