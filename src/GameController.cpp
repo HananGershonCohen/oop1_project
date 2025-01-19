@@ -30,7 +30,7 @@ void GameController::run()
 			if (event.type == sf::Event::Closed)
 				window.close();
 
-			robot.ChooseDirection();
+			robot.updateDirection();
 		}
 
 		guard.moveGuard(robot.getLocation());

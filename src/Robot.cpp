@@ -5,7 +5,7 @@ Robot::Robot(sf::Vector2f location, SfmlManager& sfmlMan)
 {
 }
 //-----------------------------------------------------------
-void Robot::ChooseDirection()
+void Robot::updateDirection()
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	{
