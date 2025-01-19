@@ -3,6 +3,7 @@
 #include "StaticObject.h"
 #include "ObjName.h"
 #include "SfmlManager.h"
+
 class Robot :public MovingObject
 {
 public:

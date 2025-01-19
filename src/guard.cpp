@@ -40,7 +40,7 @@ void Guard::moveGuard(sf::Vector2f robotLoc)
     }
 
     m_direction = direction;
-   // setDirection(direction);
+    setDirection(direction);
 
 }
 
