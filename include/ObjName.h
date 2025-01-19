@@ -7,6 +7,7 @@ enum ObjName
     Help,
     Font,
     Wall,
-    Robot,
+    E_Robot,
     Rock
 };
+
