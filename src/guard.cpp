@@ -5,34 +5,47 @@ Guard::Guard(sf::Vector2f& location, SfmlManager& SfmlMan) :
 {
 }
 
-sf::Vector2f Guard::moveGuard(sf::Vector2f& robotLoc)
+void Guard::moveGuard(sf::Vector2f robotLoc)
 {
-    auto& guardLoc = m_location; // I changed the name to make the code more readable.
+    auto& guardLoc = m_location;
     sf::Vector2f direction(0, 0);
 
-    // Checking the distance. 
+    // חישוב ההפרש בכל ציר
+    float deltaX = robotLoc.x - guardLoc.x;
+    float deltaY = robotLoc.y - guardLoc.y;
 
-    // X-axis
-    if (robotLoc.x > guardLoc.x)
+    // אם ההפרש בציר X גדול יותר, השומר יזוז על ציר ה-X
+    if (std::abs(deltaX) > std::abs(deltaY))
     {
-        direction.x += 1; // Right
+        if (robotLoc.x > guardLoc.x)
+        {
+            direction.x += 1; // Move right
+        }
+        else if (robotLoc.x < guardLoc.x)
+        {
+            direction.x -= 1; // Move left
+        }
     }
-    else if (robotLoc.x < guardLoc.x)
+    // אחרת, השומר יזוז על ציר ה-Y
+    else
     {
-        direction.x -= 1;  // Left
-
-    }
-
-    // Y - axis
-    if (robotLoc.y > guardLoc.y)
-    {
-        direction.y += 1;  // Down
-    }
-    else if (robotLoc.y < guardLoc.y)
-    {
-        direction.y -= 1;  // Up
+        if (robotLoc.y > guardLoc.y)
+        {
+            direction.y += 1; // Move down
+        }
+        else if (robotLoc.y < guardLoc.y)
+        {
+            direction.y -= 1; // Move up
+        }
     }
 
     m_direction = direction;
-    return m_direction;
+   // setDirection(direction);
+
+}
+
+void Guard::setLocation(sf::Vector2f& diraction)
+{
+    m_location.x += diraction.x;
+    m_location.y += diraction.y;
 }

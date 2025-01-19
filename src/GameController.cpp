@@ -11,10 +11,12 @@ void GameController::run()
 
 	sf::Clock gameClock;
 	sf::Vector2f loc{ 0,0 };
-	MovingObject tempObj(loc, m_SfmlManager, ObjName::E_Robot);
-	Robot robot(loc, m_SfmlManager); // Add semicolon here
-	GameBoard gameBoard(15, 15);
+	 //  MovingObject tempObj(loc, m_SfmlManager, ObjName::E_Robot);
+    Robot robot(loc, m_SfmlManager); // Add semicolon here
+	GameBoard gameBoard(25, 20);
 
+	loc.x += 8;
+	loc.y += 6;
 	Guard guard(loc, m_SfmlManager);
 
 	auto& window = gameBoard.getWindow();
@@ -27,18 +29,22 @@ void GameController::run()
 		{
 			if (event.type == sf::Event::Closed)
 				window.close();
-			direction = getDirection();
+
+			robot.ChooseDirection();
 		}
-		
+
+		guard.moveGuard(robot.getLocation());
 
 		auto deltaTime = gameClock.restart().asSeconds();
-		tempObj.setDirection(direction);
-		tempObj.move(deltaTime);
 
+		robot.move(deltaTime);
+		guard.move(deltaTime); // guard move to robot!
+		
 		
 
 		window.clear();
-		tempObj.draw(window);
+		robot.draw(window);
+		guard.draw(window);
 		guard.draw(window);
 		window.display();
 
