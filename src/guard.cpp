@@ -49,3 +49,10 @@ void Guard::setLocation(sf::Vector2f& diraction)
     m_location.x += diraction.x;
     m_location.y += diraction.y;
 }
+
+void Guard::move(float deltaTime)
+{
+    m_image.move(m_direction.x * (1 * m_pixelSize * deltaTime), m_direction.y * (1 * m_pixelSize * deltaTime));
+    m_location.x += m_direction.x * (1 * m_pixelSize * deltaTime);
+    m_location.y += m_direction.y * (1 * m_pixelSize * deltaTime);
+}

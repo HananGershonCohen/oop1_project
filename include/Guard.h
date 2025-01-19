@@ -11,6 +11,7 @@ public:
 	void moveGuard(sf::Vector2f);
 	void setLocation(sf::Vector2f&);
 	
+	virtual void move(float) override;
 
 private:
 

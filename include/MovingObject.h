@@ -8,7 +8,7 @@ class MovingObject :public StaticObject
 public:
 	MovingObject(sf::Vector2f, SfmlManager&, ObjName);
 	void setDirection(sf::Vector2f);
-	 void move(float);
+	virtual void move(float) {};
 
 protected:
 	sf::Vector2f m_direction{ 0, 0 };// defult nat moving

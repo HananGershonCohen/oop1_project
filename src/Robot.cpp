@@ -29,3 +29,10 @@ void Robot::ChooseDirection()
 
 	//setDirection();
 }
+
+void Robot::move(float deltaTime)
+{
+	m_image.move(m_direction.x * (5 * m_pixelSize * deltaTime), m_direction.y * (5 * m_pixelSize * deltaTime));
+	m_location.x += m_direction.x * (5 * m_pixelSize * deltaTime);
+	m_location.y += m_direction.y * (5 * m_pixelSize * deltaTime);
+}
