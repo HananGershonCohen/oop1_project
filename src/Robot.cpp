@@ -1,9 +1,8 @@
 #include "Robot.h"
 
 Robot::Robot(sf::Vector2f location, SfmlManager& sfmlMan)
-	: MovingObject(location, sfmlMan, ObjName::E_Robot), m_firstLoc{ location.x * m_pixelSize, location.y * m_pixelSize }//StaticObject(location, sf::Sprite{ sfmlManager.getTexture(type) }
-{
-}
+	: MovingObject(location, sfmlMan, ObjName::E_Robot), m_firstLoc{ location.x * m_pixelSize, location.y * m_pixelSize },m_sfmlManager {sfmlMan}{}
+
 //-----------------------------------------------------------
 void Robot::updateDirection()
 {
@@ -27,7 +26,25 @@ void Robot::updateDirection()
 		setDirection((sf::Vector2f{ 0, 0 })); // defulte nat moving
 
 
-	//setDirection();
+}
+
+void Robot::draw(sf::RenderWindow& window)
+{
+	StaticObject::draw(window);
+	
+	sf::Text text = m_sfmlManager.getText(ObjName::Font);
+
+	//2*50 ==> This is the extra space in the window for displaying the data. 
+	auto posy = window.getSize().y - (2 * 50); 
+	
+	text.setPosition(20, posy);
+	text.setString(std::to_string(m_life));
+	text.setCharacterSize(24);
+	const sf::Color lightBlue(173, 216, 230); 
+	text.setFillColor(lightBlue);
+
+	window.draw(text); 
+	
 }
 
 void Robot::move(float deltaTime)

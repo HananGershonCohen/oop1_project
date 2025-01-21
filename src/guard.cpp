@@ -39,16 +39,16 @@ void Guard::updateDirection(sf::Vector2f robotLoc)
         }
     }
 
-    m_direction = direction;
+    //m_direction = direction;
     setDirection(direction);
 
 }
 
-void Guard::setLocation(sf::Vector2f& diraction)
-{
-    m_location.x += diraction.x;
-    m_location.y += diraction.y;
-}
+//void Guard::setLocation(sf::Vector2f& diraction)
+//{
+//    m_location.x += diraction.x;
+//    m_location.y += diraction.y;
+//}
 
 void Guard::move(float deltaTime)
 {

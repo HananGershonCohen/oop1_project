@@ -12,21 +12,20 @@ void GameController::run()
 	//---------------------------------------------------
 
 	std::string fileName = "level01.txt";
-
 	readAndAnalyze(fileName);
 
 	sf::Clock gameClock;
 	sf::Vector2f loc{ 0,0 };
 	 //  MovingObject tempObj(loc, m_SfmlManager, ObjName::E_Robot);
     Robot robot(loc, m_SfmlManager); // Add semicolon here
-	GameBoard gameBoard(m_width, m_height);
+	GameBoard gameBoard(m_width, m_height+2);
 	
 	loc.x += 8;
 	loc.y += 6;
 	Guard guard(loc, m_SfmlManager);
 
 	auto& window = gameBoard.getWindow();
-	sf::Vector2f direction{ 0,0 };
+
 
 	while (window.isOpen())
 	{
@@ -35,31 +34,31 @@ void GameController::run()
 		{
 			if (event.type == sf::Event::Closed)
 				window.close();
-
-			robot.updateDirection();
 		}
 
+		robot.updateDirection();
 		guard.updateDirection(robot.getLocation());
-
+		
 		auto deltaTime = gameClock.restart().asSeconds();
+		
+
 
 		robot.move(deltaTime);
 		guard.move(deltaTime); // guard move to robot!
-		
-		
 
 		window.clear();
-		robot.draw(window);
-		guard.draw(window);
 
-		/*for (int i = 0; i < m_movingObjVec.size(); i++)
+		for (int i = 0; i < m_movingObjVec.size(); i++)
 		{
 			m_movingObjVec.at(i).get()->draw(window);
 		}
 		for (int i = 0; i < m_staticObjVec.size(); i++)
 		{
 			m_staticObjVec.at(i).get()->draw(window);
-		}*/
+		}
+
+		robot.draw(window);
+		guard.draw(window);
 
 		window.display();
 

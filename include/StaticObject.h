@@ -7,9 +7,11 @@ class StaticObject
 {
 public:
 	StaticObject(sf::Vector2f, sf::Sprite, ObjName);
-	void draw(sf::RenderWindow&);
+	
 	ObjName getType() const { return m_type; }
 	bool touch(sf::Vector2f& location) const { return m_image.getGlobalBounds().contains(location); }
+
+	virtual void draw(sf::RenderWindow&);
 	virtual ~StaticObject() = default;
 
 protected:
@@ -18,6 +20,7 @@ protected:
 	sf::Vector2f getLoc() const { return m_location; }
 	sf::Vector2f m_location;
 	sf::Vector2f calculateLocation(sf::Vector2f);
+	
 private:
 	//--- data_member ---
 
