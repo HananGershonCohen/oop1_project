@@ -3,13 +3,14 @@
 #include "SfmlManager.h"
 #include "ObjName.h"
 
-class StaticObject
+class StaticObjectIntroducing the skeleton
 {
 public:
 	StaticObject(sf::Vector2f, sf::Sprite, ObjName);
 	void draw(sf::RenderWindow&);
 	ObjName getType() const { return m_type; }
 	bool touch(sf::Vector2f& location) const { return m_image.getGlobalBounds().contains(location); }
+	virtual ~StaticObject() = default;
 
 protected:
 	const int m_pixelSize;
@@ -19,6 +20,8 @@ protected:
 	sf::Vector2f calculateLocation(sf::Vector2f);
 private:
 	//--- data_member ---
+
+
 
 	ObjName m_type;
 

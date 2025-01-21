@@ -11,7 +11,6 @@ public:
 	void goToFirstLoc() { m_location = m_firstLoc; }
 	sf::Vector2f getLocation() const { return m_location; }
 	void updateDirection();
-
 	virtual void move (float) override;
 
 private:

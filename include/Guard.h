@@ -7,7 +7,7 @@
 class Guard : public MovingObject
 {
 public:
-	Guard(sf::Vector2f&, SfmlManager&);
+	Guard(sf::Vector2f, SfmlManager&);
 	void updateDirection(sf::Vector2f);
 	void setLocation(sf::Vector2f&);
 	

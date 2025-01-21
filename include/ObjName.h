@@ -2,14 +2,14 @@
 
 enum ObjName
 {
-    Exit, // default = 0
+    E_Exit, // default = 0
     Start,
     Help,
     Font,
-    Wall,
+    E_Wall,
     E_Robot,
-    Rock,
+    E_Rock,
     E_Guard,
-    Door
+    E_Door
 };
 

@@ -1,6 +1,6 @@
 #include "Guard.h"
 
-Guard::Guard(sf::Vector2f& location, SfmlManager& SfmlMan) :
+Guard::Guard(sf::Vector2f location, SfmlManager& SfmlMan) :
 	MovingObject (location , SfmlMan , ObjName::E_Guard)
 {
 }

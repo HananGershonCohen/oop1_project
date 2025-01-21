@@ -15,8 +15,8 @@ FirstWindow::FirstWindow(SfmlManager& sfmlManager)
 	sf::Sprite HelpSprite(m_sfmlManager.getTexture(ObjName::Help));
 	m_buttons.push_back(Button(sf::Vector2f(5, 0), HelpSprite, ObjName::Help));
 
-	sf::Sprite ExitSprite(m_sfmlManager.getTexture(ObjName::Exit));
-	m_buttons.push_back(Button(sf::Vector2f(10, 0), ExitSprite, ObjName::Exit));
+	sf::Sprite ExitSprite(m_sfmlManager.getTexture(ObjName::E_Exit));
+	m_buttons.push_back(Button(sf::Vector2f(10, 0), ExitSprite, ObjName::E_Exit));
 
 	
 }
@@ -65,7 +65,7 @@ void FirstWindow::customerChoice()
 							text = readHelpFromFile();
 							showHelp(text);
 							break;
-						case ObjName::Exit:
+						case ObjName::E_Exit:
 							std::cout << "Exit button pressed \n";
 							m_need2exit = true;
 							m_window.close();
@@ -122,8 +122,8 @@ void FirstWindow::showHelp(sf::Text& text)
 	
 
 	// create new button.
-	sf::Sprite ExitSprite(m_sfmlManager.getTexture(ObjName::Exit));
-	Button button(sf::Vector2f(10, 10), ExitSprite, ObjName::Exit);
+	sf::Sprite ExitSprite(m_sfmlManager.getTexture(ObjName::E_Exit));
+	Button button(sf::Vector2f(10, 10), ExitSprite, ObjName::E_Exit);
 
 	while (m_window.isOpen())
 	{
