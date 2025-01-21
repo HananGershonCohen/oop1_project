@@ -3,7 +3,7 @@
 #include "SfmlManager.h"
 #include "ObjName.h"
 
-class StaticObjectIntroducing the skeleton
+class StaticObject
 {
 public:
 	StaticObject(sf::Vector2f, sf::Sprite, ObjName);
