@@ -20,4 +20,5 @@ private:
 	sf::Texture m_WallTex;
 	sf::Texture m_RockTex;
 	sf::Texture m_Guard;
+	sf::Texture m_DoorTex;
 };

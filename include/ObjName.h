@@ -9,6 +9,7 @@ enum ObjName
     Wall,
     E_Robot,
     Rock,
-    E_Guard
+    E_Guard,
+    Door
 };
 

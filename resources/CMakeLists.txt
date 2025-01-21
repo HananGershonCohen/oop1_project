@@ -7,5 +7,4 @@ configure_file ("Wall.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Robot.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Rock.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Guard.png" ${CMAKE_BINARY_DIR} COPYONLY)
-
-
+configure_file ("Door.png" ${CMAKE_BINARY_DIR} COPYONLY)

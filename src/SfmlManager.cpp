@@ -28,6 +28,9 @@ SfmlManager::SfmlManager()
 	if (!m_Guard.loadFromFile("Guard.png"))
 		std::cerr << "Failed to load Guard.png\n";
 
+	if (!m_DoorTex.loadFromFile("Door.png"))
+		std::cerr << "Failed to load Door.png\n";
+
 	std::cout << " c-tor SfmlMananger: SfmlMananger loaded successfully\n";
 }
 
@@ -57,6 +60,9 @@ sf::Texture& SfmlManager::getTexture(ObjName objName)
 	case E_Guard:
 		return m_Guard;
 		break;	
+	case Door:
+		return m_DoorTex;
+		break;
 	default:
 		std::cerr << "Error: ObjName not found\n";
 		throw std::invalid_argument("Invalid ObjName");

@@ -15,6 +15,7 @@ public:
 
 private:
 	SfmlManager m_SfmlManager{};
+
 	void handleFirstWindow(FirstWindow&) const;
 	sf::Vector2f getDirection();
 	
