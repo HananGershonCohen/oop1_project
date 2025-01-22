@@ -11,6 +11,9 @@ public:
 	void goToFirstLoc() { m_location = m_firstLoc; }
 	sf::Vector2f getLocation() const { return m_location; }
 	void updateDirection();
+
+	void handleCollision(MovingObject&);
+
 	virtual void draw(sf::RenderWindow&) override ;
 	virtual void move (float) override;
 

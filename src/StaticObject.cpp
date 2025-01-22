@@ -6,6 +6,11 @@ StaticObject::StaticObject(sf::Vector2f location, sf::Sprite image, ObjName type
 	setSpritLoc();
 }
 //---------------------------------------------------------------
+sf::Vector2f StaticObject::getLocation() const
+{
+	return m_location;
+}
+//---------------------------------------------------------------
 void StaticObject::draw(sf::RenderWindow& window)
 {
 //	m_image.setPosition(m_location);

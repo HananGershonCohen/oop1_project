@@ -9,8 +9,8 @@ public:
 	StaticObject(sf::Vector2f, sf::Sprite, ObjName);
 	
 	ObjName getType() const { return m_type; }
-	bool touch(sf::Vector2f& location) const { return m_image.getGlobalBounds().contains(location); }
-
+	bool touch(sf::Vector2f location) const { return m_image.getGlobalBounds().contains(location); }
+	sf::Vector2f getLocation() const;
 	virtual void draw(sf::RenderWindow&);
 	virtual ~StaticObject() = default;
 
