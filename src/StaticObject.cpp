@@ -5,6 +5,11 @@ StaticObject::StaticObject(sf::Vector2f location, sf::Sprite image, ObjName type
 {
 	setSpritLoc();
 }
+
+bool StaticObject::touch(sf::Vector2f location) const
+{
+	return  m_image.getGlobalBounds().contains(location);
+}
 //---------------------------------------------------------------
 sf::Vector2f StaticObject::getLocation() const
 {

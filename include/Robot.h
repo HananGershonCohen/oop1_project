@@ -12,7 +12,21 @@ public:
 	sf::Vector2f getLocation() const { return m_location; }
 	void updateDirection();
 
-	void handleCollision(MovingObject&);
+	virtual void handleCollision(StaticObject& other) override
+	{
+		std::cout << "class Robot : handleCollision other \n";
+
+		if (this->touch(other.getLocation()))
+		{
+			std::cout << "class Robot : this->touch(other.getLocation()--> TRUE \n";
+
+			other.handleCollision(*this);
+		}
+		else 
+		{
+			std::cout << "class Robot : this->touch(other.getLocation()--> False \n";
+		}
+	}
 
 	virtual void draw(sf::RenderWindow&) override ;
 	virtual void move (float) override;

@@ -27,6 +27,9 @@ void GameController::run()
 	loc.x = 3;
 	loc.y = 9;
 	Guard guard2(loc, m_SfmlManager);
+
+	loc.x = 7;
+	Wall wall(loc, m_SfmlManager);
 	auto& window = gameBoard.getWindow();
 
 
@@ -50,6 +53,7 @@ void GameController::run()
 		//guard.move(deltaTime); // guard move to robot!
 		robot.handleCollision(guard);
 		robot.handleCollision(guard2);
+		robot.handleCollision(wall);
 
 		window.clear();
 
@@ -65,7 +69,7 @@ void GameController::run()
 		robot.draw(window);
 		guard.draw(window);
 		guard2.draw(window);
-
+		wall.draw(window);
 		window.display();
 
 	

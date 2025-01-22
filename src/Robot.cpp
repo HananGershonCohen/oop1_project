@@ -28,16 +28,6 @@ void Robot::updateDirection()
 
 }
 
-void Robot::handleCollision(MovingObject& other)
-{
-
-	if (this->touch(other.getLocation()))
-	{
-		//.....
-		std::cout << "Robot touch at guard \n";
-	}
-
-}
 
 void Robot::draw(sf::RenderWindow& window)
 {
