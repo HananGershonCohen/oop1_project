@@ -23,7 +23,7 @@ public:
 	virtual void draw(sf::RenderWindow&);
 
 	// --- Double Dispatch ---
-	virtual void handleCollision(StaticObject& other) {};
+	virtual void handleCollision(StaticObject&) {};
 	virtual void handleCollision(Robot&) {};
 	virtual void handleCollision(Guard&) {};
 	

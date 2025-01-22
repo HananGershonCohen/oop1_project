@@ -1,10 +1,7 @@
 #include "Guard.h"
 
 Guard::Guard(sf::Vector2f location, SfmlManager& SfmlMan) :
-	MovingObject (location , SfmlMan , ObjName::E_Guard)
-{
-}
-
+	MovingObject (location , SfmlMan , ObjName::E_Guard){}
 void Guard::updateDirection(sf::Vector2f robotLoc)
 {
     auto& guardLoc = m_location;
@@ -43,7 +40,6 @@ void Guard::updateDirection(sf::Vector2f robotLoc)
     setDirection(direction);
 
 }
-
 //void Guard::updateDirection(sf::Vector2f robotLoc) {
 //    sf::Vector2f direction = { 0, 0 };
 //
@@ -58,15 +54,14 @@ void Guard::updateDirection(sf::Vector2f robotLoc)
 //
 //    setDirection(direction);
 //}
-
-
-
 void Guard::move(float deltaTime)
 {
     m_image.move(m_direction.x * (1 * m_pixelSize * deltaTime), m_direction.y * (1 * m_pixelSize * deltaTime));
     m_location.x += m_direction.x * (1 * m_pixelSize * deltaTime);
     m_location.y += m_direction.y * (1 * m_pixelSize * deltaTime);
 }
+
+
 
 void Guard::handleCollision(StaticObject& other)
 {

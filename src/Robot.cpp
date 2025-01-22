@@ -2,7 +2,6 @@
 
 Robot::Robot(sf::Vector2f location, SfmlManager& sfmlMan)
 	: MovingObject(location, sfmlMan, ObjName::E_Robot), m_firstLoc{ location.x * m_pixelSize, location.y * m_pixelSize },m_sfmlManager {sfmlMan}{}
-
 //-----------------------------------------------------------
 void Robot::updateDirection(sf::Vector2f)
 {
@@ -27,7 +26,6 @@ void Robot::updateDirection(sf::Vector2f)
 
 
 }
-
 void Robot::loseLife()
 {
 	// if life > 0 
@@ -35,18 +33,6 @@ void Robot::loseLife()
 	// else
 	// GameOver.
 }
-
-void Robot::handleCollision(StaticObject& other)
-{
-	if (this->collidesWith(other))
-	{
-		std::cout << "Robot touch at StaticObject \n";
-		other.handleCollision(*this); // swap
-		// continue to wall->Robot OR guard->Robot
-	}
-}
-
-
 void Robot::draw(sf::RenderWindow& window)
 {
 	StaticObject::draw(window);
@@ -65,10 +51,19 @@ void Robot::draw(sf::RenderWindow& window)
 	window.draw(text); 
 	
 }
-
 void Robot::move(float deltaTime)
 {
 	m_image.move(m_direction.x * (2 * m_pixelSize * deltaTime), m_direction.y * (2 * m_pixelSize * deltaTime));
 	m_location.x += m_direction.x * (2 * m_pixelSize * deltaTime);
 	m_location.y += m_direction.y * (2 * m_pixelSize * deltaTime);
+}
+
+void Robot::handleCollision(StaticObject& other)
+{
+	if (this->collidesWith(other))
+	{
+		std::cout << "Robot touch at StaticObject \n";
+		other.handleCollision(*this); // swap
+		// continue to wall->Robot OR guard->Robot
+	}
 }
