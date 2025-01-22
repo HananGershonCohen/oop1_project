@@ -9,6 +9,7 @@ public:
 	MovingObject(sf::Vector2f, SfmlManager&, ObjName);
 	void setDirection(sf::Vector2f);
 	virtual void move(float) {};
+	virtual void updateDirection(sf::Vector2f) {};
 	virtual ~MovingObject() = default;
 
 protected:

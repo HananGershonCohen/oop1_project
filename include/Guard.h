@@ -3,19 +3,21 @@
 #include "ObjName.h"
 #include "SfmlManager.h"
 #include "MovingObject.h"
+#include "Robot.h"
+
+class Robot;
 
 class Guard : public MovingObject
 {
 public:
 	Guard(sf::Vector2f, SfmlManager&);
-	void updateDirection(sf::Vector2f);
+	virtual void updateDirection(sf::Vector2f) override;
 	virtual void move(float) override;
 
-	virtual void handleCollision(Robot&) override
-	{
-		std::cout << "class Guard : handleCollision(Robot&) \n";
-		std::cout << "guard hit a robot. and life-- \n";
-	}
+	// --- Double Dispatch ---
+	virtual void handleCollision(StaticObject& other) override;
+	virtual void handleCollision(Robot& robot) override;
+	
 
 private:
 

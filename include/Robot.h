@@ -10,26 +10,14 @@ public:
 	Robot(sf::Vector2f, SfmlManager&);
 	void goToFirstLoc() { m_location = m_firstLoc; }
 	sf::Vector2f getLocation() const { return m_location; }
-	void updateDirection();
+	void loseLife();
 
-	virtual void handleCollision(StaticObject& other) override
-	{
-		std::cout << "class Robot : handleCollision other \n";
-
-		if (this->touch(other.getLocation()))
-		{
-			std::cout << "class Robot : this->touch(other.getLocation()--> TRUE \n";
-
-			other.handleCollision(*this);
-		}
-		else 
-		{
-			std::cout << "class Robot : this->touch(other.getLocation()--> False \n";
-		}
-	}
-
+	virtual void updateDirection(sf::Vector2f) override;
 	virtual void draw(sf::RenderWindow&) override ;
 	virtual void move (float) override;
+
+	// --- Double Dispatch ---
+	virtual void handleCollision(StaticObject& other) override;
 
 private:
 	sf::Vector2f m_firstLoc;

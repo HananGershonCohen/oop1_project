@@ -16,10 +16,10 @@ void GameController::run()
 
 	sf::Clock gameClock;
 	sf::Vector2f loc{ 0,0 };
-	 //  MovingObject tempObj(loc, m_SfmlManager, ObjName::E_Robot);
-    Robot robot(loc, m_SfmlManager); // Add semicolon here
-	GameBoard gameBoard(m_width, m_height+2);
-	
+	//  MovingObject tempObj(loc, m_SfmlManager, ObjName::E_Robot);
+	Robot robot(loc, m_SfmlManager); // Add semicolon here
+	GameBoard gameBoard(m_width, m_height + 2);
+
 	loc.x += 8;
 	loc.y += 6;
 	Guard guard(loc, m_SfmlManager);
@@ -42,38 +42,79 @@ void GameController::run()
 				window.close();
 		}
 
-		robot.updateDirection();
-		guard.updateDirection(robot.getLocation());
-		
+		/*robot.updateDirection(sf::Vector2f());
+		guard.updateDirection(robot.getLocation());*/
+
+		//*****
+		sf::Vector2f robotLoc;
+		for (const auto& objMov : m_movingObjVec) // to find location for robot
+		{
+			if (auto* robot = dynamic_cast<Robot*>(objMov.get()))
+			{
+				robotLoc = robot->getLocation();
+				break;
+			}
+		}
+
+		for (const auto& objMov : m_movingObjVec) {
+			objMov->updateDirection(robotLoc);
+		}
+		//****
 		auto deltaTime = gameClock.restart().asSeconds();
-		
-
-
-		robot.move(deltaTime);
+		for (const auto& objMov : m_movingObjVec) {
+			objMov->move(deltaTime);
+			handleCollisionController(*objMov); // call to function of this class.
+		}
+		//****
+		// 
+		// 
+		//robot.move(deltaTime);
 		//guard.move(deltaTime); // guard move to robot!
-		robot.handleCollision(guard);
-		robot.handleCollision(guard2);
-		robot.handleCollision(wall);
+		//robot.handleCollision(guard);
+		//robot.handleCollision(guard2);
+		//robot.handleCollision(wall);
 
 		window.clear();
 
-		/*for (int i = 0; i < m_movingObjVec.size(); i++)
-		{
-			m_movingObjVec.at(i).get()->draw(window);
+		for (const auto& obj : m_movingObjVec) {
+			obj->draw(window);
 		}
-		for (int i = 0; i < m_staticObjVec.size(); i++)
-		{
-			m_staticObjVec.at(i).get()->draw(window);
-		}*/
+		for (const auto& obj : m_staticObjVec) {
+			obj->draw(window);
+		}
 
-		robot.draw(window);
-		guard.draw(window);
-		guard2.draw(window);
-		wall.draw(window);
+
+
+		/*	robot.draw(window);
+			guard.draw(window);
+			guard2.draw(window);
+			wall.draw(window);*/
+
 		window.display();
+	}
+}
 
-	
 
+void GameController::handleCollisionController(MovingObject& movingObject)
+{
+	// call to function of StaticObject class
+	for (const auto& obj : m_movingObjVec) // A moving object meets a moving object
+	{
+		if (movingObject.checkCollision(*obj)) // if (movingObject == obj) return false. else true
+		{
+			movingObject.handleCollision(*obj); // call to function of StaticObject class
+			/*
+			Function is correct both if a robot gets stuck in a guard and if the guard gets stuck in the robot
+			*/
+		}
+	}
+
+	for (const auto& obj : m_staticObjVec)  // A moving object meets a stationary object
+	{
+		if (movingObject.checkCollision(*obj)) //
+		{
+			movingObject.handleCollision(*obj);
+		}
 	}
 }
 

@@ -28,6 +28,7 @@ private:
 	unsigned int m_height = 0;
 	unsigned int m_width = 0;
 
+	void handleCollisionController(MovingObject&);
 	void readAndAnalyze(std::string&);
 	void updateThisLine(std::string&);
 	void analyzeObj(char&,int);

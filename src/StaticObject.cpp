@@ -11,6 +11,11 @@ bool StaticObject::touch(sf::Vector2f location) const
 	return  m_image.getGlobalBounds().contains(location);
 }
 //---------------------------------------------------------------
+bool StaticObject::collidesWith(const StaticObject& other) const
+{
+	return m_image.getGlobalBounds().intersects(other.m_image.getGlobalBounds());
+}
+//---------------------------------------------------------------
 sf::Vector2f StaticObject::getLocation() const
 {
 	return m_location;
@@ -20,6 +25,12 @@ void StaticObject::draw(sf::RenderWindow& window)
 {
 //	m_image.setPosition(m_location);
 	window.draw(m_image);
+}
+//---------------------------------------------------------------
+bool StaticObject::checkCollision(StaticObject& other) const
+{
+	if (&other == this) return false;
+	return true;
 }
 //------------------------ private function ---------------------
 void StaticObject::setSpritLoc()
