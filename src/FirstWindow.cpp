@@ -6,7 +6,7 @@
 #include <chrono>
 
 FirstWindow::FirstWindow(SfmlManager& sfmlManager)
-	: Windows(15, 15), m_sfmlManager{ sfmlManager }
+	: Windows(15, 10), m_sfmlManager{ sfmlManager }
 {
 	//analyze the buttons	
 	sf::Sprite startSprite(m_sfmlManager.getTexture(ObjName::Start));
@@ -18,7 +18,16 @@ FirstWindow::FirstWindow(SfmlManager& sfmlManager)
 	sf::Sprite ExitSprite(m_sfmlManager.getTexture(ObjName::E_Exit));
 	m_buttons.push_back(Button(sf::Vector2f(10, 0), ExitSprite, ObjName::E_Exit));
 
-	
+	// hanan create butten
+
+	// size the button.
+	float buttonWidth = 100.f;
+	float buttonHeight = 50;
+	float spacing = 10.f;
+
+	sf::RectangleShape button1(sf::Vector2f(buttonWidth, buttonHeight));
+	sf::RectangleShape button2(sf::Vector2f(buttonWidth, buttonHeight));
+	sf::RectangleShape button3(sf::Vector2f(buttonWidth, buttonHeight));
 }
 //-------------------------------------------------------------------
 void FirstWindow::draw()

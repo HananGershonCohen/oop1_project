@@ -22,6 +22,8 @@ public:
 	void run();
 
 private:
+	sf::Clock m_gameClock;
+	sf::Vector2f m_robotLoc;
 	std::vector <std::unique_ptr<StaticObject>> m_staticObjVec;
 	std::vector <std::unique_ptr<MovingObject>> m_movingObjVec;
 	SfmlManager m_SfmlManager{};

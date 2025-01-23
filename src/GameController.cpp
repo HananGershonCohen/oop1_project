@@ -13,23 +13,7 @@ void GameController::run()
 
 	std::string fileName = "level01.txt";
 	readAndAnalyze(fileName);
-
-	//sf::Vector2f loc{ 0,0 };
-	//  MovingObject tempObj(loc, m_SfmlManager, ObjName::E_Robot);
-	//Robot robot(loc, m_SfmlManager); // Add semicolon here
-
-	//loc.x += 8;
-	//loc.y += 6;
-	//Guard guard(loc, m_SfmlManager);
-
-	//loc.x = 3;
-	//loc.y = 9;
-	//Guard guard2(loc, m_SfmlManager);
-
-	//loc.x = 7;
-	//Wall wall(loc, m_SfmlManager);
-
-	sf::Clock gameClock;
+	
 	GameBoard gameBoard(m_width, m_height + 2);
 	auto& window = gameBoard.getWindow();
 
@@ -41,40 +25,27 @@ void GameController::run()
 			if (event.type == sf::Event::Closed)
 				window.close();
 		}
-
-		/*robot.updateDirection(sf::Vector2f());
-		guard.updateDirection(robot.getLocation());*/
-
-		//*****
-		sf::Vector2f robotLoc;
+		
 		for (const auto& objMov : m_movingObjVec) // to find location for robot
 		{
 			if (auto* robot = dynamic_cast<Robot*>(objMov.get()))
 			{
-				robotLoc = robot->getLocation();
+				m_robotLoc = robot->getLocation();
 				break;
 			}
 		}
 
 		for (const auto& objMov : m_movingObjVec) {
-			objMov->updateDirection(robotLoc);
+			objMov->updateDirection(m_robotLoc);
 		}
 		//****
-		auto deltaTime = gameClock.restart().asSeconds();
+		auto deltaTime = m_gameClock.restart().asSeconds();
 		for (const auto& objMov : m_movingObjVec)
 		{
 			objMov->move(deltaTime);
 			handleCollisionController(*objMov); // call to function of this class.
 		}
 		//****
-		
-		 
-		 
-		//robot.move(deltaTime);
-		//guard.move(deltaTime); // guard move to robot!
-		//robot.handleCollision(guard);
-		//robot.handleCollision(guard2);
-		//robot.handleCollision(wall);
 
 		window.clear();
 
@@ -84,13 +55,6 @@ void GameController::run()
 		for (const auto& obj : m_staticObjVec) {
 			obj->draw(window);
 		}
-
-
-
-		/*	robot.draw(window);
-			guard.draw(window);
-			guard2.draw(window);
-			wall.draw(window);*/
 
 		window.display();
 	}
