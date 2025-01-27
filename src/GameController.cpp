@@ -59,9 +59,9 @@ void GameController::run()
 			obj->draw(window);
 		}
 
-		for (int i = 0; i < m_BombVec.size(); i++) {
-			m_BombVec[i]->updateState(); // Replace sprite to fire 
-			m_BombVec[i]->draw(window);
+		for (auto& bomb : m_BombVec) {
+			bomb->updateState(); // Replace sprite to fire 
+			bomb->draw(window);
 		}
 
 		window.display();
@@ -85,10 +85,12 @@ void GameController::handleCollisionController(MovingObject& movingObject)
 
 	for (const auto& obj : m_staticObjVec)  // A moving object meets a stationary object
 	{
-		if (movingObject.checkCollision(*obj)) //
-		{
-			movingObject.handleCollision(*obj);
-		}
+		movingObject.handleCollision(*obj);
+	}
+
+	for (const auto& obj : m_BombVec)
+	{
+		movingObject.handleCollision(*obj);
 	}
 }
 
@@ -173,5 +175,6 @@ void GameController::addBomb()
 
 void GameController::deleteObjFromVec()
 {
+	std::erase_if(m_movingObjVec, [](const auto& obj) { return obj->IsDead(); });
 	std::erase_if(m_BombVec, [](const auto& bomb) { return bomb->IsDead(); });
 }
