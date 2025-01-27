@@ -18,6 +18,7 @@ public:
 	sf::Vector2f getLocation() const;
 	bool collidesWith(const StaticObject&) const;
 	bool checkCollision(StaticObject&) const;
+	bool IsDead() const { return m_Dead; }
 
 	//--- VIRTUAL ---
 	virtual void draw(sf::RenderWindow&);
@@ -31,8 +32,10 @@ public:
 protected:
 	const int m_pixelSize;
 	sf::Sprite m_image;
-	sf::Vector2f getLoc() const { return m_location; }
 	sf::Vector2f m_location;
+	bool m_Dead = false;
+
+	sf::Vector2f getLoc() const { return m_location; }
 	sf::Vector2f calculateLocation(sf::Vector2f);
 
 private:

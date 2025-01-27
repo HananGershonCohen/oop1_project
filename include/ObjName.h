@@ -10,6 +10,8 @@ enum ObjName
     E_Robot,
     E_Rock,
     E_Guard,
-    E_Door
+    E_Door,
+    E_Bomb,
+    Fire
 };
 
