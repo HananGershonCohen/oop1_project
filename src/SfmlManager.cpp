@@ -4,8 +4,12 @@ SfmlManager::SfmlManager()
 {
 
 	// load the Font from file --> into sf::Font.
-	if (!m_font.loadFromFile("CENSCBK.ttf"))
-		std::cerr << "Failed to load CENCBK.ttf\n";
+	//if (!m_font.loadFromFile("CENSCBK.ttf"))
+	//	std::cerr << "Failed to load CENCBK.ttf\n";
+
+	if (!m_font.loadFromFile("Cat.ttf"))
+		std::cerr << "Failed to load Cat.ttf\n";
+
 
 	// load the picture from file --> into Texture.
 	if (!m_ExitTex.loadFromFile("Exit.png"))

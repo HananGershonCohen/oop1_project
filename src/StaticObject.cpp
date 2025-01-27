@@ -23,7 +23,7 @@ sf::Vector2f StaticObject::getLocation() const
 //---------------------------------------------------------------
 void StaticObject::draw(sf::RenderWindow& window)
 {
-//	m_image.setPosition(m_location);
+	m_image.setPosition(m_location);
 	window.draw(m_image);
 }
 //---------------------------------------------------------------

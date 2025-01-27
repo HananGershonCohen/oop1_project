@@ -26,7 +26,7 @@ public:
 	virtual void handleCollision(StaticObject&) {};
 	virtual void handleCollision(Robot&) {};
 	virtual void handleCollision(Guard&) {};
-	
+
 
 protected:
 	const int m_pixelSize;
@@ -34,14 +34,11 @@ protected:
 	sf::Vector2f getLoc() const { return m_location; }
 	sf::Vector2f m_location;
 	sf::Vector2f calculateLocation(sf::Vector2f);
-	
+
 private:
 	//--- data_member ---
 
-
-
 	ObjName m_type;
-
 	//---- function --------
 	void setSpritLoc();
 

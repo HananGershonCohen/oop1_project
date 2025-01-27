@@ -2,11 +2,16 @@
 #include "StaticObject.h"
 #include "ObjName.h"
 #include "SfmlManager.h"
+#include "Robot.h"
+#include "Guard.h"
 
 class Rock : public StaticObject
 {
 public:
 	Rock(sf::Vector2f, SfmlManager&);
+	// --- Double Dispatch ---
+	virtual void  handleCollision(Robot&) override;
+	virtual void  handleCollision(Guard&) override;
 
 private:
 

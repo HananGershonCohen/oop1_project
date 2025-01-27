@@ -6,7 +6,7 @@
 #include <chrono>
 
 FirstWindow::FirstWindow(SfmlManager& sfmlManager)
-	: Windows(15, 10), m_sfmlManager{ sfmlManager }
+	: Windows(15, 15), m_sfmlManager{ sfmlManager }
 {
 	//analyze the buttons	
 	sf::Sprite startSprite(m_sfmlManager.getTexture(ObjName::Start));
@@ -18,16 +18,35 @@ FirstWindow::FirstWindow(SfmlManager& sfmlManager)
 	sf::Sprite ExitSprite(m_sfmlManager.getTexture(ObjName::E_Exit));
 	m_buttons.push_back(Button(sf::Vector2f(10, 0), ExitSprite, ObjName::E_Exit));
 
-	// hanan create butten
+	//// hanan create butten
 
-	// size the button.
-	float buttonWidth = 100.f;
-	float buttonHeight = 50;
-	float spacing = 10.f;
+	//// size the button.
+	//float buttonWidth = 100.f;
+	//float buttonHeight = 50;
+	//float spacing = 10.f;
 
-	sf::RectangleShape button1(sf::Vector2f(buttonWidth, buttonHeight));
-	sf::RectangleShape button2(sf::Vector2f(buttonWidth, buttonHeight));
-	sf::RectangleShape button3(sf::Vector2f(buttonWidth, buttonHeight));
+	//sf::RectangleShape button1(sf::Vector2f(buttonWidth, buttonHeight));
+	//sf::RectangleShape button2(sf::Vector2f(buttonWidth, buttonHeight));
+	//sf::RectangleShape button3(sf::Vector2f(buttonWidth, buttonHeight));
+
+	//button1.setFillColor(sf::Color::Red);
+	//button2.setFillColor(sf::Color::Green);
+	//button3.setFillColor(sf::Color::Blue);
+
+	//auto width = m_window.getSize().x;
+	//auto height = m_window.getSize().y;
+
+	///* חישוב מיקומים מדויקים של הכפתורים*/
+	//float x = (width - 3 * buttonWidth - 2 * spacing) / 2; // מרכזים את הכפתורים
+	//float y = height - buttonHeight - 10; // קרוב לחלק התחתון של החלון
+
+	//button1.setPosition(x, y);
+	//button2.setPosition(x + buttonWidth + spacing, y);
+	//button3.setPosition(x + 2 * buttonWidth + 2 * spacing, y);
+
+	//m_buttons.push_back(Button (button1, ObjName::Start));
+	//m_buttons.push_back(Button(button1, ObjName::Help));
+	//m_buttons.push_back(Button(button1, ObjName::E_Exit));
 }
 //-------------------------------------------------------------------
 void FirstWindow::draw()
@@ -50,8 +69,6 @@ void FirstWindow::customerChoice()
 		sf::Event event;
 		if (m_window.pollEvent(event))
 		{
-
-
 			if (event.type == sf::Event::Closed)
 				m_window.close();
 

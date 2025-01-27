@@ -12,4 +12,5 @@ bool Button::userPressOnTheButton(sf::Vector2f& location) const
 	return m_image.getGlobalBounds().contains(location);
 
 }
+
 //-------------------------------------------------------------------
