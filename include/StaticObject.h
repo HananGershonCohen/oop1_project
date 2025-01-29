@@ -3,9 +3,10 @@
 #include "SfmlManager.h"
 #include "ObjName.h"
 
-
 class Robot;
 class Guard;
+class Bomb;
+class Rock;
 
 class StaticObject
 {
@@ -18,9 +19,8 @@ public:
 	sf::Vector2f getLocation() const;
 	bool collidesWith(const StaticObject&) const;
 	bool checkCollision(StaticObject&) const;
-	void setDead(bool);
-	bool IsDead() const; 
-
+	virtual void setDead(bool = true);
+	bool IsDead() const;
 	//--- VIRTUAL ---
 	virtual void draw(sf::RenderWindow&);
 
@@ -28,15 +28,17 @@ public:
 	virtual void handleCollision(StaticObject&) {};
 	virtual void handleCollision(Robot&) {};
 	virtual void handleCollision(Guard&) {};
+	virtual void handleCollision(Rock&) {};
 
 
 protected:
+	void setLocation() { m_image.setPosition(m_location); }
+
 	const int m_pixelSize;
 	sf::Sprite m_image;
+	sf::Vector2f getLoc() const { return m_location; }
 	sf::Vector2f m_location;
 	bool m_Dead = false;
-
-	sf::Vector2f getLoc() const { return m_location; }
 	sf::Vector2f calculateLocation(sf::Vector2f);
 
 private:

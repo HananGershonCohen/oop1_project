@@ -15,6 +15,7 @@
 #include "Wall.h"
 #include "Bomb.h"
 
+
 class GameController
 {
 public:
@@ -27,7 +28,6 @@ private:
 	std::vector <std::unique_ptr<StaticObject>> m_staticObjVec;
 	std::vector <std::unique_ptr<MovingObject>> m_movingObjVec;
 	std::vector <std::unique_ptr<Bomb>> m_BombVec;
-
 	SfmlManager m_SfmlManager{};
 	unsigned int m_height = 0;
 	unsigned int m_width = 0;
@@ -35,10 +35,14 @@ private:
 	void handleCollisionController(MovingObject&);
 	void readAndAnalyze(std::string&);
 	void updateThisLine(std::string&);
-	void analyzeObj(char&,int);
+	void analyzeObj(char&, int);
 	void handleFirstWindow(FirstWindow&) const;
+	//-------------------------------------
+	void restartObjPlace();
+	void mainLoop(sf::RenderWindow&);
+	void draw(sf::RenderWindow&);
+	void handleEvent();
+	//-------------------------------------
 	void addBomb();
 	void deleteObjFromVec();
-	
 };
-

@@ -1,6 +1,5 @@
 #include "GameController.h"
 
-
 //--------------------------------------------------------
 void GameController::run()
 {
@@ -13,62 +12,15 @@ void GameController::run()
 
 	std::string fileName = "level01.txt";
 	readAndAnalyze(fileName);
-	
+
 	GameBoard gameBoard(m_width, m_height + 2);
 	auto& window = gameBoard.getWindow();
 
-	m_gameClock.restart();
-	while (window.isOpen())
-	{
-		sf::Event event;
-		if (window.pollEvent(event))
-		{
-			if (event.type == sf::Event::Closed)
-				window.close();
+	window.setFramerateLimit(60);
+	mainLoop(window);
 
-			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::B)
-				addBomb();
-		}
-
-		deleteObjFromVec();
-
-
-		//****
-		auto deltaTime = m_gameClock.restart().asSeconds();
-		for (const auto& objMov : m_movingObjVec)
-		{
-			if (objMov.get()->getType() == ObjName::E_Robot)
-			{
-				m_robotLoc = objMov.get()->getLocation();
-			}
-			objMov->updateDirection(m_robotLoc);
-			handleCollisionController(*objMov); // call to function of this class.
-			objMov->move(deltaTime);
-		}
-
-		//****
-
-
-		window.clear();
-
-		for (const auto& obj : m_movingObjVec) {
-			obj->draw(window);
-		}
-
-		for (const auto& obj : m_staticObjVec) {
-			obj->draw(window);
-		}
-
-		for (auto& bomb : m_BombVec) {
-			bomb->updateState(); // Replace sprite to fire 
-			bomb->draw(window);
-		}
-
-		window.display();
-	}
 }
-
-
+//--------------------------------------------------
 void GameController::handleCollisionController(MovingObject& movingObject)
 {
 	// call to function of StaticObject class
@@ -85,7 +37,10 @@ void GameController::handleCollisionController(MovingObject& movingObject)
 
 	for (const auto& obj : m_staticObjVec)  // A moving object meets a stationary object
 	{
-		movingObject.handleCollision(*obj);
+		if (movingObject.checkCollision(*obj)) //
+		{
+			movingObject.handleCollision(*obj);
+		}
 	}
 
 	for (const auto& obj : m_BombVec)
@@ -93,7 +48,7 @@ void GameController::handleCollisionController(MovingObject& movingObject)
 		movingObject.handleCollision(*obj);
 	}
 }
-
+//--------------------------------------------------
 void GameController::readAndAnalyze(std::string& fileName)
 {
 	auto file = std::ifstream(fileName);
@@ -115,23 +70,22 @@ void GameController::readAndAnalyze(std::string& fileName)
 	}
 	m_width = static_cast<unsigned int>(line.size());
 }
-
+//--------------------------------------------------
 void GameController::updateThisLine(std::string& line)
 {
 	char ch;
 	for (int i = 0; i < line.size(); i++)
 	{
 		ch = line[i];
-		analyzeObj(ch,i);
+		analyzeObj(ch, i);
 	}
 }
-
-void GameController::analyzeObj(char& ch ,int col)
+//--------------------------------------------------
+void GameController::analyzeObj(char& ch, int col)
 {
 	switch (ch)
 	{
 	case '/':
-		m_robotLoc = sf::Vector2f((float)col, (float)m_height);
 		m_movingObjVec.push_back(std::make_unique<Robot>(sf::Vector2f((float)col, (float)m_height), m_SfmlManager));
 		break;
 	case '!':
@@ -162,19 +116,113 @@ void GameController::handleFirstWindow(FirstWindow& window) const
 		std::cout << "Starting The Game\n";
 	}
 }
+//--------------------------------------------------
+void GameController::restartObjPlace()
+{
+	for (const auto& objMov : m_movingObjVec)
+	{
+		objMov->goToFirstLoc();
+	}
+	m_BombVec.clear();
+}
+//--------------------------------------------------
+void GameController::mainLoop(sf::RenderWindow& window)
+{
+	m_gameClock.restart();// that in rhe first time the obj nat will jump
+	while (window.isOpen())
+	{
+		sf::Event event;
+		if (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+				window.close();
+			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::B)
+				addBomb();
+		}
+		deleteObjFromVec();
+		handleEvent();
+		//----------- Bomb Event ---------------
+		for (auto& bomb : m_BombVec)
+		{
+			for (const auto& obj : m_staticObjVec)
+			{
+				{
+					obj->handleCollision(*bomb);
+				}
+			}
+		}
 
+		draw(window);
+
+	}
+}
+//--------------------------------------------------
+void GameController::draw(sf::RenderWindow& window)
+{
+	window.clear();
+
+	for (const auto& obj : m_movingObjVec) {
+		obj->draw(window);
+	}
+	for (const auto& obj : m_staticObjVec) {
+		obj->draw(window);
+	}
+
+	for (auto& bomb : m_BombVec) {
+		bomb->draw(window); // Replace sprite to fire 
+
+	}
+	window.display();
+}
+//--------------------------------------------------
+void GameController::handleEvent()
+{
+	// that vary nat good i need to move the robot from the vector of moving object
+	for (const auto& objMov : m_movingObjVec) // to find location for robot
+	{
+		//if (auto* robot = dynamic_cast<Robot*>(objMov.get()))
+		if (objMov.get()->getType() == ObjName::E_Robot)
+		{
+			//	m_robotLoc = robot->getLocation();
+			m_robotLoc = objMov.get()->getLocation();
+			break;
+		}
+	}
+
+	//****
+	auto deltaTime = m_gameClock.restart().asSeconds();
+	for (const auto& objMov : m_movingObjVec)
+	{
+		//if robot touch the guard i will se it in the next loop
+		if (objMov->need2restartPlace()) {
+			restartObjPlace();
+		}
+
+		objMov->updateDirection(m_robotLoc);// false
+		handleCollisionController(*objMov); // call to function of this class.
+		objMov->move(deltaTime);
+	}
+
+	for (auto& bomb : m_BombVec) {
+		bomb->updateState(); // Replace sprite to fire 
+	}
+}
+//--------------------------------------------------
 void GameController::addBomb()
-{       
+{
 	// update loc on tile
-	int newX = (m_robotLoc.x + 25) / 50;
-	int newY = (m_robotLoc.y + 25) / 50;
+	int newX = static_cast<int> ((m_robotLoc.x + 25) / 50);
+	int newY = static_cast<int>((m_robotLoc.y + 25) / 50);
 
 	//Bomb bomb(sf::Vector2f(newX, newY), m_SfmlManager);
 	m_BombVec.push_back(std::make_unique<Bomb>(sf::Vector2f(newX, newY), m_SfmlManager));
 }
-
+//--------------------------------------------------
 void GameController::deleteObjFromVec()
 {
 	std::erase_if(m_movingObjVec, [](const auto& obj) { return obj->IsDead(); });
 	std::erase_if(m_BombVec, [](const auto& bomb) { return bomb->IsDead(); });
+	std::erase_if(m_staticObjVec, [](const auto& obj) { return obj->IsDead(); });
+
+
 }

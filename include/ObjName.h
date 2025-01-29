@@ -11,6 +11,7 @@ enum ObjName
     E_Rock,
     E_Guard,
     E_Door,
+    E_Temp,
     E_Bomb,
     Fire
 };
