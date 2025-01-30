@@ -1,5 +1,9 @@
 #include "GameController.h"
 
+GameController::GameController() :m_information(m_SfmlManager)  , m_SfmlManager()
+{
+}
+
 //--------------------------------------------------------
 void GameController::run()
 {
