@@ -21,6 +21,7 @@ void GameController::run()
 		m_information.setLevel(i);
 		m_information.setLevelFinish(false);
 		clearAllVec();
+
 		std::string fileName = "level" + std::string(i < 10 ? "0" : "") + std::to_string(i) + ".txt";
 		readAndAnalyze(fileName);
 
@@ -61,6 +62,7 @@ void GameController::run()
 
 			if (m_information.getLevelFinish())
 				break;
+
 			if (m_information.getClock().isFinished() || m_information.getRobotKill())
 				gameOver();
 
@@ -120,6 +122,7 @@ void GameController::readAndAnalyze(const std::string& fileName)
 		m_height++;
 	}
 	m_width = static_cast<unsigned int>(line.size());
+	m_height--;
 }
 //--------------------------------------------------
 void GameController::updateThisLine(const std::string& line)
@@ -129,6 +132,13 @@ void GameController::updateThisLine(const std::string& line)
 	{
 		ch = line[i];
 		analyzeObj(ch, i);
+	}
+
+	if (isdigit(line[0]))
+	{
+		std::string str = line;
+		int second = std::stoi(str); // Convert the string to an integer
+		m_information.getClock().start(second);
 	}
 }
 //--------------------------------------------------
@@ -175,10 +185,11 @@ void GameController::clearAllVec()
 	m_movingObjVec.clear();
 	m_staticObjVec.clear();
 }
+
 void GameController::gameOver() const
 {
 	std::cout << "GameOver\n";
-	
+	// draw 
 	std::this_thread::sleep_for(std::chrono::seconds(5));
 	exit(0);
 }
@@ -265,6 +276,4 @@ void GameController::deleteObjFromVec()
 	std::erase_if(m_movingObjVec, [](const auto& obj) { return obj->IsDead(); });
 	std::erase_if(m_BombVec, [](const auto& bomb) { return bomb->IsDead(); });
 	std::erase_if(m_staticObjVec, [](const auto& obj) { return obj->IsDead(); });
-
-
 }

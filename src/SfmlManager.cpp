@@ -41,7 +41,7 @@ SfmlManager::SfmlManager()
 	if (!m_fireTex.loadFromFile("fire.png"))
 		std::cerr << "Failed to load fire.png\n";
 
-	if (!m_fireTex.loadFromFile("GameOver.png"))
+	if (!m_gameOverTex.loadFromFile("GameOver.png"))
 		std::cerr << "Failed to load GameOver.png\n";
 
 	std::cout << " c-tor SfmlMananger: SfmlMananger loaded successfully\n";

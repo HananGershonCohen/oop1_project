@@ -3,11 +3,12 @@
 #include <string>
 #include <sstream>
 
-class CountdownTimer {
+class CountdownTimer
+{
 public:
     CountdownTimer(float duration);
 
-    void start();
+    void start(float duration);
     void update();
     std::string getTimeString() const;
     bool isFinished() const;

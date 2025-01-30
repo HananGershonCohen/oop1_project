@@ -28,9 +28,9 @@ private:
 	bool m_levelCompleted;
 	bool m_robotKill;
 	int m_score;
-	int m_lifeRobot = 5;
+	int m_lifeRobot = 5;  // default
 	int m_countGuard;
 	int m_level;
 	SfmlManager& m_SfmlManager;
-	CountdownTimer m_clock{ 30 };
+	CountdownTimer m_clock{ 0 };
 };

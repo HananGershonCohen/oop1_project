@@ -66,9 +66,6 @@ CountdownTimer& Information::getClock()
 
 void Information::draw(sf::RenderWindow& window)
 {
-	
-
-
 	// Need to optimize
 	auto Life = m_SfmlManager.getText(ObjName::Font);
 	auto score = m_SfmlManager.getText(ObjName::Font);

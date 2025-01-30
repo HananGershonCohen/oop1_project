@@ -4,8 +4,10 @@ CountdownTimer::CountdownTimer(float duration)
     : m_duration(sf::seconds(duration)), m_remainingTime(m_duration) {
 }
 
-void CountdownTimer::start() {
-    m_clock.restart();
+void CountdownTimer::start(float duration) {
+    m_duration = sf::seconds(duration);  // עדכון duration חדש
+    m_remainingTime = m_duration;        // מאפס את הזמן שנותר
+    m_clock.restart();                   // מאפס את השעון
 }
 
 void CountdownTimer::update() {
