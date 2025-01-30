@@ -41,6 +41,9 @@ SfmlManager::SfmlManager()
 	if (!m_fireTex.loadFromFile("fire.png"))
 		std::cerr << "Failed to load fire.png\n";
 
+	if (!m_fireTex.loadFromFile("GameOver.png"))
+		std::cerr << "Failed to load GameOver.png\n";
+
 	std::cout << " c-tor SfmlMananger: SfmlMananger loaded successfully\n";
 }
 
@@ -69,6 +72,8 @@ sf::Texture& SfmlManager::getTexture(ObjName objName)
 		return m_BombTex;
 	case Fire:
 		return m_fireTex;
+	case GameOver:
+		return m_gameOverTex;
 	default:
 		std::cerr << "Error: ObjName not found\n";
 		throw std::invalid_argument("Invalid ObjName");

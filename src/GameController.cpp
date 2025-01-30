@@ -1,4 +1,6 @@
 #include "GameController.h"
+#include <cctype>
+#include <thread>
 
 GameController::GameController() : m_SfmlManager(), m_information(m_SfmlManager)  
 {
@@ -16,12 +18,13 @@ void GameController::run()
 
 	for (int i = 1; i <= m_numLevel; i++)
 	{
+		m_information.setLevel(i);
 		m_information.setLevelFinish(false);
 		clearAllVec();
 		std::string fileName = "level" + std::string(i < 10 ? "0" : "") + std::to_string(i) + ".txt";
 		readAndAnalyze(fileName);
 
-
+		
 
 
 
@@ -58,6 +61,8 @@ void GameController::run()
 
 			if (m_information.getLevelFinish())
 				break;
+			if (m_information.getClock().isFinished() || m_information.getRobotKill())
+				gameOver();
 
 		}
 
@@ -169,6 +174,13 @@ void GameController::clearAllVec()
 	m_BombVec.clear();
 	m_movingObjVec.clear();
 	m_staticObjVec.clear();
+}
+void GameController::gameOver() const
+{
+	std::cout << "GameOver\n";
+	
+	std::this_thread::sleep_for(std::chrono::seconds(5));
+	exit(0);
 }
 //--------------------------------------------------
 void GameController::restartObjPlace()

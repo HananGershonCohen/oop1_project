@@ -37,8 +37,8 @@ void Robot::updateDirection(sf::Vector2f)
 void Robot::loseLife()
 {
 	m_information.loseRobotLife();
-	if (m_information.getRobotLife() <= 0 )
-		m_robotKilled = true;
+	if (m_information.getRobotLife() <= 0)
+		m_information.setRobotKill(true);
 }
 //---------------------------------------------------------
 void Robot::dountMove()

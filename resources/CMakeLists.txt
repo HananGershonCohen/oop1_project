@@ -11,6 +11,7 @@ configure_file ("Guard.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Door.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Bomb.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("fire.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("gameOver.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("level01.txt" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("level02.txt" ${CMAKE_BINARY_DIR} COPYONLY)
 

@@ -15,7 +15,6 @@ private:
 	sf::Texture m_ExitTex;
 	sf::Texture m_HelpTex;
 	sf::Texture m_StartTex;
-	sf::Font m_font;
 	sf::Texture m_RobotTex;
 	sf::Texture m_WallTex;
 	sf::Texture m_RockTex;
@@ -23,5 +22,6 @@ private:
 	sf::Texture m_DoorTex;
 	sf::Texture m_BombTex;
 	sf::Texture m_fireTex;
-
+	sf::Texture m_gameOverTex;
+	sf::Font m_font;
 };

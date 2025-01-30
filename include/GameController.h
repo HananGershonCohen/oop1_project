@@ -15,6 +15,7 @@
 #include "Wall.h"
 #include "Bomb.h"
 #include "Information.h"
+#include "CountdownTimer .h"
 
 class GameController
 {
@@ -41,6 +42,7 @@ private:
 	void analyzeObj(char&, int);
 	void handleFirstWindow(FirstWindow&) const;
 	void clearAllVec();
+	void gameOver() const;
 	//-------------------------------------
 	void restartObjPlace();
 	//void mainLoop(sf::RenderWindow&);

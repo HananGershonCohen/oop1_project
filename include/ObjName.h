@@ -13,6 +13,7 @@ enum ObjName
     E_Door,
     E_Temp,
     E_Bomb,
-    Fire
+    Fire,
+    GameOver
 };
 

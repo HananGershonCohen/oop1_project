@@ -1,6 +1,7 @@
 #include "Information.h"
 
-Information::Information(SfmlManager& sfMan) : m_SfmlManager(sfMan), m_levelCompleted(false),m_score(0), m_countGuard(0){}
+Information::Information(SfmlManager& sfMan) :
+	m_SfmlManager(sfMan), m_levelCompleted(false),m_score(0), m_countGuard(0) , m_robotKill(false){}
 
 void Information::setLevelFinish(const bool flag)
 {
@@ -24,6 +25,26 @@ void Information::increaseGuardCount() {
 	m_countGuard++;
 }
 
+void Information::setLevel(const int num)
+{
+	m_level = num;
+}
+
+void Information::setRobotKill(const bool flag)
+{
+	m_robotKill = flag;
+}
+
+bool Information::getRobotKill() const
+{
+	return m_robotKill;
+}
+
+int Information::getLevel() const
+{
+	return m_level;
+}
+
 int Information::getGuardCount() const {
 	return m_countGuard;
 }
@@ -38,28 +59,52 @@ bool Information::getLevelFinish() const
 	return m_levelCompleted;
 }
 
+CountdownTimer& Information::getClock() 
+{
+	return m_clock;
+}
+
 void Information::draw(sf::RenderWindow& window)
 {
+	
+
+
+	// Need to optimize
 	auto Life = m_SfmlManager.getText(ObjName::Font);
 	auto score = m_SfmlManager.getText(ObjName::Font);
+	auto level = m_SfmlManager.getText(ObjName::Font);
+	auto clock = m_SfmlManager.getText(ObjName::Font);
+	m_clock.update();
+
 	const sf::Color lightBlue(173, 216, 230);
 	//2*50 ==> This is the extra space in the window for displaying the data. 
 	//------life---------
 	auto posy = window.getSize().y - (2 * 50);
 	Life.setPosition(0, posy);
-	score.setPosition(70, posy);
+	score.setPosition(60, posy);
+	level.setPosition(180, posy);
+	clock.setPosition(260, posy);
 
 	Life.setString("Life: \n " + std::to_string(m_lifeRobot));
 	score.setString("Score: \n " + std::to_string(m_score));
+	level.setString("Level: \n " + std::to_string(m_level));
+	clock.setString("Clock: \n " + m_clock.getTimeString());
 
 	Life.setCharacterSize(24);
 	score.setCharacterSize(24);
+	level.setCharacterSize(24);
+	clock.setCharacterSize(24);
+
 	Life.setFillColor(lightBlue);
 	score.setFillColor(lightBlue);
+	level.setFillColor(lightBlue);
+	clock.setFillColor(lightBlue);
+
 
 	window.draw(Life);
 	window.draw(score);
-
+	window.draw(level);
+	window.draw(clock);
 
 
 	//------time---------
