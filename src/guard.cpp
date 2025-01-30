@@ -1,9 +1,8 @@
 #include "Guard.h"
 
-Guard::Guard(sf::Vector2f location, SfmlManager& SfmlMan) :
-    MovingObject(location, SfmlMan, ObjName::E_Guard), m_firstLoc{ location.x * m_pixelSize, location.y * m_pixelSize }
-{
-}
+Guard::Guard(sf::Vector2f location, SfmlManager& SfmlMan, Information& info) :
+    MovingObject(location, SfmlMan, ObjName::E_Guard , info), m_firstLoc{ location.x * m_pixelSize, location.y * m_pixelSize } {}
+
 //--------------------------------------------------------------
 void Guard::dountMove()
 {

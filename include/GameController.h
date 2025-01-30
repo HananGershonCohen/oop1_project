@@ -14,7 +14,7 @@
 #include "Door.h"
 #include "Wall.h"
 #include "Bomb.h"
-
+#include "Information.h"
 
 class GameController
 {
@@ -29,6 +29,7 @@ private:
 	std::vector <std::unique_ptr<MovingObject>> m_movingObjVec;
 	std::vector <std::unique_ptr<Bomb>> m_BombVec;
 	SfmlManager m_SfmlManager{};
+	Information m_information{};
 	unsigned int m_height = 0;
 	unsigned int m_width = 0;
 

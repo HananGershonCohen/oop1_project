@@ -1,7 +1,7 @@
 #include "Robot.h"
 
-Robot::Robot(sf::Vector2f location, SfmlManager& sfmlMan)
-	: MovingObject(location, sfmlMan, ObjName::E_Robot), m_firstLoc{ location.x * m_pixelSize, location.y * m_pixelSize }
+Robot::Robot(sf::Vector2f location, SfmlManager& sfmlMan , Information& info)
+	: MovingObject(location, sfmlMan, ObjName::E_Robot ,info ), m_firstLoc{ location.x * m_pixelSize, location.y * m_pixelSize }
 	, m_sfmlManager{ sfmlMan }
 {
 }

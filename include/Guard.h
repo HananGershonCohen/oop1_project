@@ -10,7 +10,7 @@ class Robot;
 class Guard : public MovingObject
 {
 public:
-	Guard(sf::Vector2f, SfmlManager&);
+	Guard(sf::Vector2f, SfmlManager&, Information&);
 	void goToFirstLoc() { m_location = m_firstLoc; }
 	void dountMove();
 	virtual void updateDirection(sf::Vector2f) override;

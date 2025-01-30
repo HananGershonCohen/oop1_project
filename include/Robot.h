@@ -7,7 +7,7 @@
 class Robot :public MovingObject
 {
 public:
-	Robot(sf::Vector2f, SfmlManager&);
+	Robot(sf::Vector2f, SfmlManager&, Information&);
 	sf::Vector2f getLocation() const { return m_location; }
 	void loseLife();
 	bool robotAreDead() const { return m_robotKilled; }
