@@ -45,6 +45,13 @@ void Guard::move(float deltaTime)
     m_location.x += m_direction.x * (m_pixelSize * deltaTime);
     m_location.y += m_direction.y * (m_pixelSize * deltaTime);
 }
+
+void Guard::setDead(bool)
+{
+    m_information.setScore(5);
+    StaticObject::setDead();
+}
+
 //--------------------------------------------------------------
 void Guard::handleCollision(StaticObject& other)
 {

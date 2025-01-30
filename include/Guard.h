@@ -17,6 +17,7 @@ public:
 	virtual void goToFirstLoc() override { m_location = m_firstLoc; }
 	virtual void updateDirection(sf::Vector2f) override;
 	virtual void move(float) override;
+	virtual void setDead(bool = true) override;
 
 	// --- Double Dispatch ---
 	virtual void handleCollision(StaticObject& other) override;

@@ -1,6 +1,6 @@
 #include "GameController.h"
 
-GameController::GameController() :m_information(m_SfmlManager)  , m_SfmlManager()
+GameController::GameController() : m_SfmlManager(), m_information(m_SfmlManager)  
 {
 }
 
@@ -135,6 +135,7 @@ void GameController::analyzeObj(char& ch, int col)
 		m_movingObjVec.push_back(std::make_unique<Robot>(sf::Vector2f((float)col, (float)m_height), m_SfmlManager ,m_information));
 		break;
 	case '!':
+		m_information.increaseGuardCount();
 		m_movingObjVec.push_back(std::make_unique<Guard>(sf::Vector2f((float)col, (float)m_height), m_SfmlManager ,m_information));
 		break;
 	case '#':
@@ -199,6 +200,8 @@ void GameController::draw(sf::RenderWindow& window)
 		bomb->draw(window); // Replace sprite to fire 
 
 	}
+
+	m_information.draw(window);
 	window.display();
 }
 //--------------------------------------------------
