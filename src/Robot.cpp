@@ -3,8 +3,7 @@
 Robot::Robot(sf::Vector2f location, SfmlManager& sfmlMan , Information& info)
 	: MovingObject(location, sfmlMan, ObjName::E_Robot ,info ), m_firstLoc{ location.x * m_pixelSize, location.y * m_pixelSize }
 	, m_sfmlManager{ sfmlMan }
-{
-}
+{ }
 //-----------------------------------------------------------
 void Robot::updateDirection(sf::Vector2f)
 {
@@ -51,6 +50,12 @@ void Robot::dountMove()
 	//-----------------------------
 	m_currentFrame = 1;
 
+}
+
+void Robot::FinishLevel(const bool flag) 
+{
+	m_information.setLevelFinish(flag);
+	std::cout << "Robot hit a Door go to next level\n";
 }
 //---------------------------------------------------------
 void Robot::draw(sf::RenderWindow& window)

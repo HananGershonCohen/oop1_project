@@ -11,8 +11,10 @@ class Guard : public MovingObject
 {
 public:
 	Guard(sf::Vector2f, SfmlManager&, Information&);
-	void goToFirstLoc() { m_location = m_firstLoc; }
+	
 	void dountMove();
+
+	virtual void goToFirstLoc() override { m_location = m_firstLoc; }
 	virtual void updateDirection(sf::Vector2f) override;
 	virtual void move(float) override;
 

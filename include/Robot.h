@@ -12,11 +12,10 @@ public:
 	void loseLife();
 	bool robotAreDead() const { return m_robotKilled; }
 	void dountMove();
-	void FinishedLevel() const { std::cout << "You finished the level \n;"; }
+	void FinishLevel(const bool); 
 	void touchBomb() { m_need2restartPlace = true; }
 	//-----------------------------------------------------
-	void goToFirstLoc() { m_location = m_firstLoc; }
-
+	virtual void goToFirstLoc() override { m_location = m_firstLoc; }
 	virtual void updateDirection(sf::Vector2f) override;
 	virtual void draw(sf::RenderWindow&) override;
 	virtual void move(float) override;

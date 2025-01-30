@@ -30,17 +30,19 @@ private:
 	std::vector <std::unique_ptr<Bomb>> m_BombVec;
 	SfmlManager m_SfmlManager{};
 	Information m_information{};
+	int m_numLevel = 2;
 	unsigned int m_height = 0;
 	unsigned int m_width = 0;
 
 	void handleCollisionController(MovingObject&);
-	void readAndAnalyze(std::string&);
-	void updateThisLine(std::string&);
+	void readAndAnalyze(const std::string&);
+	void updateThisLine(const std::string&);
 	void analyzeObj(char&, int);
 	void handleFirstWindow(FirstWindow&) const;
+	void clearAllVec();
 	//-------------------------------------
 	void restartObjPlace();
-	void mainLoop(sf::RenderWindow&);
+	//void mainLoop(sf::RenderWindow&);
 	void draw(sf::RenderWindow&);
 	void handleEvent();
 	//-------------------------------------

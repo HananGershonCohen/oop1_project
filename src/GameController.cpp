@@ -10,15 +10,57 @@ void GameController::run()
 		return;
 	//---------------------------------------------------
 
-	std::string fileName = "level01.txt";
-	readAndAnalyze(fileName);
+	for (int i = 1; i <= m_numLevel; i++)
+	{
+		m_information.setLevelFinish(false);
+		clearAllVec();
+		std::string fileName = "level" + std::string(i < 10 ? "0" : "") + std::to_string(i) + ".txt";
+		readAndAnalyze(fileName);
 
-	GameBoard gameBoard(m_width, m_height + 2);
-	auto& window = gameBoard.getWindow();
 
-	window.setFramerateLimit(60);
-	mainLoop(window);
 
+
+
+
+		GameBoard gameBoard(m_width, m_height + 2);
+		auto& window = gameBoard.getWindow();
+		window.setFramerateLimit(60);
+		m_gameClock.restart();// that in rhe first time the obj nat will jump
+
+		while (window.isOpen())
+		{
+			sf::Event event;
+			if (window.pollEvent(event))
+			{
+				if (event.type == sf::Event::Closed)
+					window.close();
+				if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::B)
+					addBomb();
+			}
+			deleteObjFromVec();
+			handleEvent();
+			//----------- Bomb Event ---------------
+			for (auto& bomb : m_BombVec)
+			{
+				for (const auto& obj : m_staticObjVec)
+				{
+					{
+						obj->handleCollision(*bomb);
+					}
+				}
+			}
+
+			draw(window);
+
+			if (m_information.getLevelFinish())
+				break;
+
+		}
+
+		/*mainLoop(window);*/
+
+
+	}
 }
 //--------------------------------------------------
 void GameController::handleCollisionController(MovingObject& movingObject)
@@ -49,7 +91,7 @@ void GameController::handleCollisionController(MovingObject& movingObject)
 	}
 }
 //--------------------------------------------------
-void GameController::readAndAnalyze(std::string& fileName)
+void GameController::readAndAnalyze(const std::string& fileName)
 {
 	auto file = std::ifstream(fileName);
 	if (!file.is_open())
@@ -71,7 +113,7 @@ void GameController::readAndAnalyze(std::string& fileName)
 	m_width = static_cast<unsigned int>(line.size());
 }
 //--------------------------------------------------
-void GameController::updateThisLine(std::string& line)
+void GameController::updateThisLine(const std::string& line)
 {
 	char ch;
 	for (int i = 0; i < line.size(); i++)
@@ -116,6 +158,13 @@ void GameController::handleFirstWindow(FirstWindow& window) const
 		std::cout << "Starting The Game\n";
 	}
 }
+
+void GameController::clearAllVec()
+{
+	m_BombVec.clear();
+	m_movingObjVec.clear();
+	m_staticObjVec.clear();
+}
 //--------------------------------------------------
 void GameController::restartObjPlace()
 {
@@ -126,36 +175,10 @@ void GameController::restartObjPlace()
 	m_BombVec.clear();
 }
 //--------------------------------------------------
-void GameController::mainLoop(sf::RenderWindow& window)
-{
-	m_gameClock.restart();// that in rhe first time the obj nat will jump
-	while (window.isOpen())
-	{
-		sf::Event event;
-		if (window.pollEvent(event))
-		{
-			if (event.type == sf::Event::Closed)
-				window.close();
-			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::B)
-				addBomb();
-		}
-		deleteObjFromVec();
-		handleEvent();
-		//----------- Bomb Event ---------------
-		for (auto& bomb : m_BombVec)
-		{
-			for (const auto& obj : m_staticObjVec)
-			{
-				{
-					obj->handleCollision(*bomb);
-				}
-			}
-		}
-
-		draw(window);
-
-	}
-}
+//void GameController::mainLoop(sf::RenderWindow& window)
+//{
+//	
+//}
 //--------------------------------------------------
 void GameController::draw(sf::RenderWindow& window)
 {

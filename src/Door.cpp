@@ -7,6 +7,6 @@ void Door::handleCollision(Robot& robot)
 {
 	if (this->collidesWith(robot))
 	{
-		robot.FinishedLevel();
+		robot.FinishLevel(true);
 	}
 }
