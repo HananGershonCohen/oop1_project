@@ -2,14 +2,16 @@
 
 Bomb::Bomb(sf::Vector2f location, SfmlManager& sfmlManager) :
 	StaticObject(location, sf::Sprite(sfmlManager.getTexture(ObjName::E_Bomb)), ObjName::E_Bomb), m_clock(),
-	m_fireSpr(sf::Sprite(sfmlManager.getTexture(ObjName::Fire))) {
+	m_fireSpr(sf::Sprite(sfmlManager.getTexture(ObjName::E_Fire))),m_sfmlManager(sfmlManager) {
 }
 //----------------------------------------
 void Bomb::updateState()
 {
+	
 	float elapsedTime = m_clock.getElapsedTime().asSeconds();
 
 	if (elapsedTime > 4 && !m_exploded) {
+		playMusic();
 		m_image.setTexture(*m_fireSpr.getTexture());// why *m_fireSpr and nat m_fireSpr
 		//m_image = m_fireSpr;
 		m_exploded = true;
@@ -233,4 +235,11 @@ void Bomb::draw(sf::RenderWindow& window)
 		m_location.y += m_pixelSize;
 		setLocation();
 	}
+}
+
+void Bomb::playMusic()
+{
+	m_explSnd.setBuffer(m_sfmlManager.getSound(Snd::explosion));
+	m_explSnd.setVolume(100);
+	m_explSnd.play();
 }

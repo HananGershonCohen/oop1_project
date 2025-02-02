@@ -23,6 +23,7 @@ public:
 	bool IsDead() const;
 	//--- VIRTUAL ---
 	virtual void draw(sf::RenderWindow&);
+	virtual void playMusic() {};
 
 	// --- Double Dispatch ---
 	virtual void handleCollision(StaticObject&) {};

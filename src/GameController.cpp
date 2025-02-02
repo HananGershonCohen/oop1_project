@@ -11,6 +11,7 @@ void GameController::run()
 {
 	// ------ need do write this FirstWindow in private. ------
 	FirstWindow firstWindow(m_SfmlManager);
+	
 	handleFirstWindow(firstWindow);
 	if (firstWindow.need2exit())
 		return;

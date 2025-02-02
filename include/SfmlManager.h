@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include "ObjName.h"
 #include <iostream>
 
@@ -10,6 +11,7 @@ public:
 	SfmlManager(); // c-tor load file to sf objects.
 	sf::Texture& getTexture(ObjName); // return reference of texture according the ObgName(Enum). 
 	sf::Text getText(ObjName) const; // return reference of font.
+	sf::SoundBuffer& getSound(Snd);
 
 private:
 	sf::Texture m_ExitTex;
@@ -24,4 +26,7 @@ private:
 	sf::Texture m_fireTex;
 	sf::Texture m_gameOverTex;
 	sf::Font m_font;
+	sf::SoundBuffer m_hurtSnd;
+	sf::SoundBuffer m_explSnd;
+	sf::Music m_menuSnd;
 };

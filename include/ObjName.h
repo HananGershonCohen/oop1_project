@@ -13,7 +13,14 @@ enum ObjName
     E_Door,
     E_Temp,
     E_Bomb,
-    Fire,
-    GameOver
+    E_Fire,
+    GameOver,
 };
 
+enum Snd
+{
+    hurt,
+    explosion,
+    menu
+
+};

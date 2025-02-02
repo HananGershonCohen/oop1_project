@@ -58,39 +58,17 @@ void Robot::FinishLevel(const bool flag)
 	m_information.setLevelFinish(flag);
 	std::cout << "Robot hit a Door go to next level\n";
 }
+
+void Robot::playMusic()
+{
+	m_hurtSnd.setBuffer(m_sfmlManager.getSound(Snd::hurt));
+	m_hurtSnd.setVolume(100);
+	m_hurtSnd.play();
+}
+
 //---------------------------------------------------------
 void Robot::draw(sf::RenderWindow& window)
 {
-	////  currentFrame = (currentFrame + 1) % 3;
-	//// enum Direction { Up = 0, Left = 3, Down = 2, Right = 1 };
-	////   sprite.setTextureRect(sf::IntRect(currentFrame * frameWidth, direction * frameHeight, frameWidth, frameHeight));
-	////sprite.setScale(3.f, 3.f);
-	////
-	//m_currentFrame = (m_currentFrame + 1) % 3;
-	//if (m_direction == sf::Vector2f{ 1,0 })//right
-	//{
-	//	//m_image.setTextureRect(sf::IntRect(m_currentFrame * (48/3), 72/4, (48 / 3), 72 / 4));
-	//	//m_image.setScale(3.f, 3.f);
-	//}
-	//else if (m_direction == sf::Vector2f{ -1,0 })
-	//{
-
-	//}
-	//else if (m_direction == sf::Vector2f{ 0,1 })
-	//{
-
-	//}
-	//else if (m_direction == sf::Vector2f{ 0,-1 })//up
-	//{
-	//	
-	//	//m_image.setTextureRect(sf::IntRect(m_currentFrame * (48 / 3), 0, (48 / 3), 72 / 4));
-	//	//m_image.setScale(3.f, 3.f);
-	//}
-	//else if (m_direction == sf::Vector2f{ 0,0 })
-	//{
-
-	//}
-	//m_image.setScale(3.f, 3.f);
 	StaticObject::draw(window);
 	drawInformation(window);
 }

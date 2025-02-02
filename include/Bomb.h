@@ -19,8 +19,12 @@ public:
 	virtual void handleCollision(Robot&);
 	virtual void handleCollision(Rock&);
 	virtual void draw(sf::RenderWindow&) override;
+	virtual void playMusic() override;
+
 private:
 	sf::Clock m_clock;
 	sf::Sprite m_fireSpr;
+	sf::Sound m_explSnd;
+	SfmlManager& m_sfmlManager;
 	bool m_exploded = false;
 };

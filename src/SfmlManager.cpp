@@ -2,24 +2,16 @@
 
 SfmlManager::SfmlManager()
 {
-
-	// load the Font from file --> into sf::Font.
-	//if (!m_font.loadFromFile("CENSCBK.ttf"))
-	//	std::cerr << "Failed to load CENCBK.ttf\n";
-
 	if (!m_font.loadFromFile("Cat.ttf"))
 		std::cerr << "Failed to load Cat.ttf\n";
-
 
 	// load the picture from file --> into Texture.
 	if (!m_ExitTex.loadFromFile("Exit.png"))
 		std::cerr << "Failed to load Exit.png\n";
 	if (!m_HelpTex.loadFromFile("Help.png"))
 		std::cerr << "Failed to load Help.png\n";
-
 	if (!m_StartTex.loadFromFile("Start.png"))
 		std::cerr << "Failed to load Start.png\n";
-
 	if (!m_WallTex.loadFromFile("Wall.png"))
 		std::cerr << "Failed to load Wall.png\n";
 
@@ -43,6 +35,12 @@ SfmlManager::SfmlManager()
 
 	if (!m_gameOverTex.loadFromFile("GameOver.png"))
 		std::cerr << "Failed to load GameOver.png\n";
+
+	if (!m_hurtSnd.loadFromFile("hurt.wav"))
+		std::cerr << "Failed to load hurt.wav\n";
+
+	if (!m_explSnd.loadFromFile("expl.wav"))
+		std::cerr << "Failed to load expl.wav\n";
 
 	std::cout << " c-tor SfmlMananger: SfmlMananger loaded successfully\n";
 }
@@ -70,7 +68,7 @@ sf::Texture& SfmlManager::getTexture(ObjName objName)
 		return m_DoorTex;
 	case E_Bomb:
 		return m_BombTex;
-	case Fire:
+	case E_Fire:
 		return m_fireTex;
 	case GameOver:
 		return m_gameOverTex;
@@ -83,19 +81,26 @@ sf::Texture& SfmlManager::getTexture(ObjName objName)
 
 sf::Text SfmlManager::getText(ObjName objName) const
 {
-	sf::Text textTemp;
+	sf::Text text;
 
 	switch (objName)
 	{
 	case Font:
-		textTemp.setFont(m_font);
-		return textTemp;
-		break;
-
+		text.setFont(m_font);
+		return text;
 	default:
 		std::cerr << "Error: ObjName not found\n";
 		throw std::invalid_argument("Invalid ObjName");
-		break;
 	}
+}
 
+sf::SoundBuffer& SfmlManager::getSound(Snd snd)
+{
+	switch (snd)
+	{
+	case hurt:
+		return m_hurtSnd;
+	case explosion:
+		return m_explSnd;
+	}
 }

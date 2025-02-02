@@ -67,6 +67,7 @@ void Guard::handleCollision(Robot& robot)
 {
     if (this->collidesWith(robot))
     {
+        robot.playMusic();
         std::cout << "guard hit a robot. and life-- \n";
         robot.loseLife();
         m_need2restartPlace = true;
