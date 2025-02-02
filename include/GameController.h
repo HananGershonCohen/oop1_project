@@ -26,6 +26,7 @@ public:
 
 private:
 	sf::Clock m_gameClock;
+	sf::Music m_soundGame;
 	sf::Vector2f m_robotLoc;
 	std::vector <std::unique_ptr<StaticObject>> m_staticObjVec;
 	std::vector <std::unique_ptr<MovingObject>> m_movingObjVec;
@@ -43,6 +44,7 @@ private:
 	void handleFirstWindow(FirstWindow&) const;
 	void clearAllVec();
 	void gameOver() const;
+	void playMusic();
 	//-------------------------------------
 	void restartObjPlace();
 	//void mainLoop(sf::RenderWindow&);

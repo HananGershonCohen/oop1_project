@@ -26,26 +26,27 @@ void GameController::run()
 		std::string fileName = "level" + std::string(i < 10 ? "0" : "") + std::to_string(i) + ".txt";
 		readAndAnalyze(fileName);
 
-		
-
-
-
 
 		GameBoard gameBoard(m_width, m_height + 2);
 		auto& window = gameBoard.getWindow();
 		window.setFramerateLimit(60);
 		m_gameClock.restart();// that in rhe first time the obj nat will jump
-
+		playMusic();
 		while (window.isOpen())
 		{
 			sf::Event event;
 			if (window.pollEvent(event))
 			{
 				if (event.type == sf::Event::Closed)
+				{
+					m_soundGame.stop();
 					window.close();
+				}
+
 				if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::B)
 					addBomb();
 			}
+
 			deleteObjFromVec();
 			handleEvent();
 			//----------- Bomb Event ---------------
@@ -193,6 +194,12 @@ void GameController::gameOver() const
 	// draw 
 	std::this_thread::sleep_for(std::chrono::seconds(5));
 	exit(0);
+}
+void GameController::playMusic()
+{
+	m_soundGame.openFromFile("gameSound.mp3");
+	m_soundGame.setLoop(true);
+	m_soundGame.play();
 }
 //--------------------------------------------------
 void GameController::restartObjPlace()
