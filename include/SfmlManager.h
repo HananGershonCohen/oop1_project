@@ -28,5 +28,4 @@ private:
 	sf::Font m_font;
 	sf::SoundBuffer m_hurtSnd;
 	sf::SoundBuffer m_explSnd;
-	sf::Music m_menuSnd;
 };

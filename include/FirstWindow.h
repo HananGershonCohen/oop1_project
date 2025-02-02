@@ -11,7 +11,7 @@ public:
 	FirstWindow(SfmlManager&);// =15 for default size of window
 	void draw();
 	void customerChoice();
-
+	void playMusic();
 	bool need2exit() const { return m_need2exit; }
 	bool need2start() const { return m_need2start; }
 
@@ -19,6 +19,7 @@ private:
 	//--- data members----
 	SfmlManager& m_sfmlManager;
 	ObjName m_objName{};
+	sf::Music m_menuSnd;
 	std::vector<Button> m_buttons;
 	bool m_need2exit = false;
 	bool m_need2start = false;

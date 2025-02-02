@@ -21,6 +21,4 @@ enum Snd
 {
     hurt,
     explosion,
-    menu
-
 };
