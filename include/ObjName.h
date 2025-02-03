@@ -2,7 +2,7 @@
 
 enum ObjName
 {
-    E_Exit, // default = 0
+    Exit, // default = 0
     Start,
     Help,
     Font,
@@ -14,11 +14,15 @@ enum ObjName
     E_Temp,
     E_Bomb,
     E_Fire,
-    GameOver,
+    E_Gift1,
+    E_Gift2,
+    E_Gift3,
+    E_Gift4,
 };
 
 enum Snd
 {
     hurt,
     explosion,
+    bombTic
 };
