@@ -5,13 +5,14 @@
 #include "Robot.h"
 #include "Guard.h"
 #include "Rock.h"
-//class Rock;
+#include "Information.h"
+#include <vector>
 
 
 class Bomb :public StaticObject
 {
 public:
-	Bomb(sf::Vector2f, SfmlManager&);
+	Bomb(sf::Vector2f, SfmlManager&, Information&);
 	void updateState();
 	bool IsExploded();
 
@@ -19,12 +20,18 @@ public:
 	virtual void handleCollision(Robot&);
 	virtual void handleCollision(Rock&);
 	virtual void draw(sf::RenderWindow&) override;
-	virtual void playMusic() override;
 
 private:
+	int m_second = 0;
+	float m_time = 0;
+	sf::Sound m_explSnd;
+	sf::Sound m_ticSnd;
 	sf::Clock m_clock;
 	sf::Sprite m_fireSpr;
-	sf::Sound m_explSnd;
-	SfmlManager& m_sfmlManager;
 	bool m_exploded = false;
+	std::vector <sf::Vector2f> m_explosionLocVec;
+	Information& m_information;
+	void initializationBombVec();
+	void playExpl();
+	void playTic();
 };

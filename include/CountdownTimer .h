@@ -8,6 +8,7 @@ class CountdownTimer
 public:
     CountdownTimer(float duration);
 
+    void addTime();
     void start(float duration);
     void update();
     std::string getTimeString() const;

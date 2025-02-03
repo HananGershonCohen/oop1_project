@@ -1,5 +1,3 @@
-
-#include "Gift2.h"
 #include "Gift2.h"
 
 Gift2::Gift2(sf::Vector2f location, SfmlManager& sf)

@@ -3,6 +3,13 @@
 #include "StaticObject.h"
 #include "ObjName.h"
 #include "SfmlManager.h"
+#include "Information.h"
+class Gift1;
+class Gift2;
+class Gift3;
+class Gift4;
+
+
 
 class Robot :public MovingObject
 {
@@ -12,21 +19,27 @@ public:
 	void loseLife();
 	bool robotAreDead() const { return m_robotKilled; }
 	void dountMove();
-	void FinishLevel(const bool); 
-	void touchBomb() { m_need2restartPlace = true; }
-
+	void FinishedLevel() const;
+	void Defeated() { m_need2restartPlace = true; }
 	//-----------------------------------------------------
-	virtual void goToFirstLoc() override { m_location = m_firstLoc; }
-	virtual void updateDirection(sf::Vector2f) override;
+	void goToFirstLoc() { m_location = m_firstLoc; }
+	virtual void setDead(bool = true);
+	virtual void updateDirection() override;
 	virtual void draw(sf::RenderWindow&) override;
 	virtual void move(float) override;
-	virtual void playMusic() override;
+
 	// --- Double Dispatch ---
 	virtual void handleCollision(StaticObject& other) override;
+	virtual void handleCollision(Gift1&);
+	virtual void handleCollision(Gift2&);
+	virtual void handleCollision(Gift3&);
+	virtual void handleCollision(Gift4&);
+
+
+
 
 private:
 	sf::Vector2f m_firstLoc;
-	sf::Sound m_hurtSnd;
 	int m_life = 5;
 	float m_time = 0;// for new is default
 	int m_seconds = 0;
@@ -38,4 +51,7 @@ private:
 	int m_currentFrame = 0;
 	//--- function ---
 	void drawInformation(sf::RenderWindow&);
+
+	//----------------------
+	sf::Texture& m_texture;
 };

@@ -11,9 +11,10 @@ bool StaticObject::touch(sf::Vector2f location) const
 	return  m_image.getGlobalBounds().contains(location);
 }
 //---------------------------------------------------------------
-bool StaticObject::collidesWith(const StaticObject& other) const
+bool StaticObject::collidesWith(StaticObject& other)
 {
 	return m_image.getGlobalBounds().intersects(other.m_image.getGlobalBounds());
+
 }
 //---------------------------------------------------------------
 sf::Vector2f StaticObject::getLocation() const
@@ -35,6 +36,7 @@ bool StaticObject::checkCollision(StaticObject& other) const
 //------------------------ private function ---------------------
 void StaticObject::setSpritLoc()
 {
+
 	m_image.setScale(0.05f, 0.05f);
 	m_image.setPosition(m_location);
 }
@@ -44,13 +46,8 @@ sf::Vector2f StaticObject::calculateLocation(sf::Vector2f location)
 	return sf::Vector2f(location.x * m_pixelSize, location.y * m_pixelSize);
 }
 //---------------------------------------------------------------
-
 void StaticObject::setDead(bool flag)
 {
 	m_Dead = flag;
 }
-
-bool StaticObject::IsDead() const
-{
-	return m_Dead;
-}
+//---------------------------------------------------------------

@@ -16,41 +16,51 @@
 #include "Bomb.h"
 #include "Information.h"
 #include "CountdownTimer .h"
+#include "Gift.h"
+#include "Gift1.h"
+#include "Gift2.h"
+#include "Gift3.h"
+#include "Gift4.h"
+#include <cstdlib>  
+#include <ctime> 
+#include <SFML/Audio.hpp>
+
 
 class GameController
 {
 public:
 	GameController();
-
 	void run();
 
 private:
 	sf::Clock m_gameClock;
 	sf::Music m_soundGame;
-	sf::Vector2f m_robotLoc;
 	std::vector <std::unique_ptr<StaticObject>> m_staticObjVec;
 	std::vector <std::unique_ptr<MovingObject>> m_movingObjVec;
 	std::vector <std::unique_ptr<Bomb>> m_BombVec;
-	SfmlManager m_SfmlManager;
+	SfmlManager& m_SfmlManager = SfmlManager::getInstance();
 	Information m_information;
-	int m_numLevel = 2;
 	unsigned int m_height = 0;
 	unsigned int m_width = 0;
+	unsigned int m_numLevel = 3;
 
 	void handleCollisionController(MovingObject&);
-	void readAndAnalyze(const std::string&);
-	void updateThisLine(const std::string&);
+	void readAndAnalyze(std::string&);
+	void updateThisLine(std::string&);
 	void analyzeObj(char&, int);
 	void handleFirstWindow(FirstWindow&) const;
-	void clearAllVec();
-	void gameOver() const;
-	void playMusic();
-	//-------------------------------------
 	void restartObjPlace();
-	//void mainLoop(sf::RenderWindow&);
+	void mainLoop(sf::RenderWindow&);
 	void draw(sf::RenderWindow&);
 	void handleEvent();
 	//-------------------------------------
 	void addBomb();
+	void addGift();
+
 	void deleteObjFromVec();
+	//-------------------------------------
+	void clearAllVec();
+	void gameOver() const;
+	//-------------------------------------
+	void playMusic();
 };
