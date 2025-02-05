@@ -21,32 +21,23 @@ void Robot::updateDirection()
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	{
-		setDirection(sf::Vector2f{ 1, 0 });
-		//m_image.setOrigin(m_location.x+ 25.f, m_location.y+ 25.f);
-		//m_image.setScale(0.05f, 0.05f);	
-		//m_image.setOrigin(m_location.x, m_location.y);
-		//m_image.setOrigin(0.f, 0.f);
+		setDirection(Place::Directions::Right);
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
-		setDirection(sf::Vector2f{ -1, 0 });
-		//m_image.setOrigin(m_location.x + 25.f, m_location.y + 25.f);
-		//m_image.setScale(-0.05f, 0.05f);
-		//m_image.setOrigin(0.f, 0.f);
-		//m_image.setOrigin(m_location.x, m_location.y);
-
+		setDirection(Place::Directions::Left);
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 	{
-		setDirection(sf::Vector2f{ 0, -1 });
+		setDirection(Place::Directions::Up);
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 	{
-		setDirection(sf::Vector2f{ 0, 1 });
+		setDirection(Place::Directions::Down);
 	}
 	else
 	{
-		setDirection(sf::Vector2f{ 0, 0 }); // default nat moving
+		setDirection(Place::Directions::Center); // default nat moving
 		m_stopped = true;
 	}
 
@@ -66,11 +57,13 @@ void Robot::loseLife()
 void Robot::dountMove()
 {
 
-	int newX = (m_location.x + 25) / 50;
-	int newY = (m_location.y + 25) / 50;
-	newX *= 50;
-	newY *= 50;
-	m_location = sf::Vector2f{ (float)newX, (float)newY };
+	//int newX = (m_location.x + 25) / 50;
+	//int newY = (m_location.y + 25) / 50;
+	//newX *= 50;
+	//newY *= 50;
+	//m_location = sf::Vector2f{ (float)newX, (float)newY };
+
+	m_location = Place::toPlace(m_location, Data::pixelSize);
 	//-----------------------------
 	m_currentFrame = 1;
 

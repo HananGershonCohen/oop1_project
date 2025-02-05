@@ -3,7 +3,7 @@
 Bomb::Bomb(sf::Vector2f location, SfmlManager& sfmlManager, Information& info) :
 	StaticObject(location, sf::Sprite(sfmlManager.getTexture(ObjName::E_Bomb)), ObjName::E_Bomb), m_clock(),
 	m_fireSpr(sf::Sprite(sfmlManager.getTexture(ObjName::E_Fire))), m_information{ info },
-	m_explSnd(), m_ticSnd()
+	m_explSnd(), m_ticSnd(), m_bombTime{ sfmlManager.getText(ObjName::Font) }
 
 {
 	m_explSnd.setBuffer(sfmlManager.getSound(Snd::explosion));
@@ -13,15 +13,12 @@ Bomb::Bomb(sf::Vector2f location, SfmlManager& sfmlManager, Information& info) :
 //----------------------------------------
 void Bomb::updateState()
 {
-	// m_time = m_clock.getElapsedTime().asSeconds();
+
 	m_time += m_clock.restart().asSeconds();
 	if (m_time >= m_second + 1) {
 		m_second++;
-		//print on the bomb 5 - m_second
-		//play bomb tic
 		playTic();
 	}
-
 
 
 	if (m_second > 4 && !m_exploded) {
@@ -43,172 +40,34 @@ bool Bomb::IsExploded()
 //----------------------------------------
 void Bomb::handleCollision(Guard& guard)
 {
-	if (m_exploded && !m_Dead)
-	{
-		if (this->collidesWith(guard))
-		{
-			guard.setDead(true);
-		}
-
-		// 4 direction
-
-		// right place
-		m_location.x += m_pixelSize;
-		setLocation();
-		if (this->collidesWith(guard))
-		{
-			guard.setDead(true);
-		}
-		m_location.x -= m_pixelSize;
-
-
-		//left place
-		m_location.x -= m_pixelSize;
-		setLocation();
-		if (this->collidesWith(guard))
-		{
-
-			guard.setDead(true);
-		}
-		m_location.x += m_pixelSize;
-
-		//down place
-		m_location.y += m_pixelSize;
-		setLocation();
-		if (this->collidesWith(guard))
-		{
-			guard.setDead(true);
-
-		}
-		m_location.y -= m_pixelSize;
-
-
-		//up place
-		m_location.y -= m_pixelSize;
-		setLocation();
-		if (this->collidesWith(guard))
-		{
-			guard.setDead(true);
-		}
-		m_location.y += m_pixelSize;
-		setLocation();
-	}
-
+	handleCollision(dynamic_cast<MovingObject&>(guard));
 }
 //----------------------------------------
 void Bomb::handleCollision(Robot& robot)
 {
+	handleCollision(dynamic_cast<MovingObject&>(robot));
+}
+//----------------------------------------
+void Bomb::handleCollision(MovingObject& movObg)
+{
 	if (m_exploded && !m_Dead)
 	{
-
-		if (this->collidesWith(robot))
+		sf::Vector2f originalLocation = m_location;
+		for (const auto& offset : m_explosionLocVec)
 		{
-			robot.setDead();
-			return;
+			m_location = offset;
+			setLocation();
+
+			if (this->collidesWith(movObg))
+			{
+				movObg.setDead(true);
+				return;
+			}
 		}
-		// 4 direction
+		m_location = originalLocation;
 
-		// right place
-		m_location.x += m_pixelSize;
-		setLocation();
-		if (this->collidesWith(robot))
-		{
-
-			robot.setDead();
-			return;
-		}
-		m_location.x -= m_pixelSize;
-
-
-		//left place
-		m_location.x -= m_pixelSize;
-		setLocation();
-		if (this->collidesWith(robot))
-		{
-			robot.setDead();
-
-			return;
-		}
-		m_location.x += m_pixelSize;
-
-		//down place
-		m_location.y += m_pixelSize;
-		setLocation();
-		if (this->collidesWith(robot))
-		{
-
-			robot.setDead();
-			return;
-		}
-		m_location.y -= m_pixelSize;
-
-
-		//up place
-		m_location.y -= m_pixelSize;
-		setLocation();
-		if (this->collidesWith(robot))
-		{
-			robot.setDead();
-			return;
-		}
-		m_location.y += m_pixelSize;
-		setLocation();
 	}
 }
-//------------------------------------------------------
-//void Bomb::handleCollision(StaticObject& other)
-//{
-//	if (m_exploded && !m_Dead)
-//	{
-//		if (this->collidesWith(other))
-//		{
-//			other.setDead(true);
-//		}
-//
-//		// 4 direction
-//
-//		// right place
-//		m_location.x += m_pixelSize;
-//		setLocation();
-//		if (this->collidesWith(other))
-//		{
-//			other.setDead(true);
-//		}
-//		m_location.x -= m_pixelSize;
-//
-//
-//		//left place
-//		m_location.x -= m_pixelSize;
-//		setLocation();
-//		if (this->collidesWith(other))
-//		{
-//
-//			other.setDead(true);
-//		}
-//		m_location.x += m_pixelSize;
-//
-//		//down place
-//		m_location.y += m_pixelSize;
-//		setLocation();
-//		if (this->collidesWith(other))
-//		{
-//			other.setDead(true);
-//
-//		}
-//		m_location.y -= m_pixelSize;
-//
-//
-//		//up place
-//		m_location.y -= m_pixelSize;
-//		setLocation();
-//		if (this->collidesWith(other))
-//		{
-//			other.setDead(true);
-//		}
-//		m_location.y += m_pixelSize;
-//		setLocation();
-//	}
-//}
 //----------------------------------------
 void Bomb::handleCollision(Rock& rock)
 {
@@ -285,6 +144,8 @@ void Bomb::draw(sf::RenderWindow& window)
 		m_location = loc;
 		StaticObject::draw(window);
 	}
+	drawTime(window);
+
 }
 //----------------------------------------
 void Bomb::initializationBombVec()
@@ -309,6 +170,7 @@ void Bomb::initializationBombVec()
 
 		}
 	}
+	m_explosionLocVec.push_back(m_location);
 }
 //----------------------------------------
 void Bomb::playExpl()
@@ -320,7 +182,20 @@ void Bomb::playExpl()
 //----------------------------------------
 void Bomb::playTic()
 {
-
-	m_ticSnd.setVolume(70);
-	m_ticSnd.play();
+	if (5 - m_second > 0) {
+		m_ticSnd.setVolume(70);
+		m_ticSnd.play();
+	}
+}
+//----------------------------------------
+void Bomb::drawTime(sf::RenderWindow& window)
+{
+	if (5 - m_second > 0) {
+		m_bombTime.setString(std::to_string(5 - m_second));
+		m_bombTime.setCharacterSize(24);
+		m_bombTime.setOrigin(12, 12);
+		m_bombTime.setPosition(m_location.x + m_pixelSize / 2, m_location.y + m_pixelSize / 2);
+		m_bombTime.setFillColor(sf::Color::Red);
+		window.draw(m_bombTime);
+	}
 }

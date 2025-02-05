@@ -13,9 +13,6 @@ class Gift2;
 class Gift3;
 class Gift4;
 
-
-
-
 class StaticObject
 {
 public:

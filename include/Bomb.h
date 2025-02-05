@@ -2,6 +2,7 @@
 #include "StaticObject.h"
 #include "ObjName.h"
 #include "SfmlManager.h"
+#include "MovingObject.h"
 #include "Robot.h"
 #include "Guard.h"
 #include "Rock.h"
@@ -31,7 +32,11 @@ private:
 	bool m_exploded = false;
 	std::vector <sf::Vector2f> m_explosionLocVec;
 	Information& m_information;
+	sf::Text m_bombTime;
+	//--------------------------------------
+	void handleCollision(MovingObject&);
 	void initializationBombVec();
 	void playExpl();
 	void playTic();
+	void drawTime(sf::RenderWindow&);
 };

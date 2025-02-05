@@ -5,49 +5,44 @@
 #include <thread>
 #include <chrono>
 
-FirstWindow::FirstWindow(SfmlManager& sfmlManager)
-	: Windows(15, 15), m_sfmlManager{ sfmlManager }
+FirstWindow::FirstWindow(SfmlManager& sfmlMan)
+	: Windows(15, 15), m_sfmlManager{ sfmlMan }
 {
-	//analyze the buttons	
-	sf::Sprite startSprite(m_sfmlManager.getTexture(ObjName::Start));
-	m_buttons.push_back(Button(sf::Vector2f(0, 0), startSprite, ObjName::Start));
+	// חישוב המידות של הכפתורים
+	float buttonWidth = m_width / 1.5;   // רוחב הכפתור יהיה חצי מרוחב החלון
+	float buttonHeight = m_height / 4; // גובה הכפתור יהיה שליש מגובה החלון
 
-	sf::Sprite HelpSprite(m_sfmlManager.getTexture(ObjName::Help));
-	m_buttons.push_back(Button(sf::Vector2f(5, 0), HelpSprite, ObjName::Help));
+	// חישוב המיקום של הכפתורים
+	float spacing = 20.f; // רווח בין הכפתורים
 
-	sf::Sprite ExitSprite(m_sfmlManager.getTexture(ObjName::E_Exit));
-	m_buttons.push_back(Button(sf::Vector2f(10, 0), ExitSprite, ObjName::E_Exit));
+	// חישוב מיקום X כדי למקם את הכפתורים במרכז
+	float x = (m_width - buttonWidth) / 2; // למרכז את הכפתור בהיבט האופקי
 
-	//// hanan create butten
+	// חישוב מיקום Y כדי למקם את הכפתורים אחד מתחת לשני
+	float y = (m_height - 3 * buttonHeight - 2 * spacing) / 2; // למרכז את הכפתורים בהיבט האנכי
 
-	//// size the button.
-	//float buttonWidth = 100.f;
-	//float buttonHeight = 50;
-	//float spacing = 10.f;
+	// יצירת 3 כפתורים
+	sf::RectangleShape button1(sf::Vector2f(buttonWidth, buttonHeight));
+	sf::RectangleShape button2(sf::Vector2f(buttonWidth, buttonHeight));
+	sf::RectangleShape button3(sf::Vector2f(buttonWidth, buttonHeight));
 
-	//sf::RectangleShape button1(sf::Vector2f(buttonWidth, buttonHeight));
-	//sf::RectangleShape button2(sf::Vector2f(buttonWidth, buttonHeight));
-	//sf::RectangleShape button3(sf::Vector2f(buttonWidth, buttonHeight));
+	// הגדרת צבעים לכפתורים
+	button1.setFillColor(sf::Color(0, 122, 255));  // כחול בהיר למתחילים
+	button2.setFillColor(sf::Color(34, 139, 34));  // ירוק כהה לעזרה
+	button3.setFillColor(sf::Color(220, 20, 60));  // אדום כהה ליציאה
 
-	//button1.setFillColor(sf::Color::Red);
-	//button2.setFillColor(sf::Color::Green);
-	//button3.setFillColor(sf::Color::Blue);
+	// הצבת המיקומים של הכפתורים
+	button1.setPosition(x, y);
+	button2.setPosition(x, y + buttonHeight + spacing); // כפתור 2 נמצא מתחת לכפתור 1
+	button3.setPosition(x, y + 2 * (buttonHeight + spacing)); // כפתור 3 נמצא מתחת לכפתור 2
 
-	//auto width = m_window.getSize().x;
-	//auto height = m_window.getSize().y;
+	// הוספת הכפתורים לרשימה
+	m_buttons.push_back(Button(button1, ObjName::Start, sfmlMan));
+	m_buttons.push_back(Button(button2, ObjName::Help, sfmlMan));
+	m_buttons.push_back(Button(button3, ObjName::E_Exit, sfmlMan));
 
-	///* חישוב מיקומים מדויקים של הכפתורים*/
-	//float x = (width - 3 * buttonWidth - 2 * spacing) / 2; // מרכזים את הכפתורים
-	//float y = height - buttonHeight - 10; // קרוב לחלק התחתון של החלון
-
-	//button1.setPosition(x, y);
-	//button2.setPosition(x + buttonWidth + spacing, y);
-	//button3.setPosition(x + 2 * buttonWidth + 2 * spacing, y);
-
-	//m_buttons.push_back(Button (button1, ObjName::Start));
-	//m_buttons.push_back(Button(button1, ObjName::Help));
-	//m_buttons.push_back(Button(button1, ObjName::E_Exit));
 }
+
 //-------------------------------------------------------------------
 void FirstWindow::draw()
 {
@@ -151,16 +146,58 @@ sf::Text FirstWindow::readHelpFromFile() const
 	return text;
 }
 
+//void FirstWindow::showHelp(sf::Text& text)
+//{
+//	// show the ALL text on the window 
+//	wrapText(text, m_window.getSize().x - 20); // 20 is some padding from the edges
+//
+//	
+//
+//	// create new button.
+//	sf::Sprite ExitSprite(m_sfmlManager.getTexture(ObjName::E_Exit));
+////	Button button(sf::Vector2f(10, 10), ExitSprite, ObjName::E_Exit);
+//
+//	//sf::RectangleShape button
+//
+//	while (m_window.isOpen())
+//	{
+//		sf::Event event;
+//		if (m_window.pollEvent(event))
+//		{
+//			if (event.type == sf::Event::Closed)
+//				return;
+//
+//			if (event.type == sf::Event::MouseButtonPressed)
+//			{
+//				sf::Vector2f location = { float(event.mouseButton.x), float(event.mouseButton.y) };
+//				//if (button.userPressOnTheButton(location))
+//					return;
+//			}
+//		}
+//
+//		m_window.clear();
+//		m_window.draw(text);
+//	//	button.draw(m_window);
+//		m_window.display();
+//	}
+//}
+
 void FirstWindow::showHelp(sf::Text& text)
 {
-	// show the ALL text on the window 
-	wrapText(text, m_window.getSize().x - 20); // 20 is some padding from the edges
+	// הצגת כל הטקסט על החלון
+	wrapText(text, m_window.getSize().x - 20); // 20 זה רווח מהקצוות
 
-	
+	// יצירת כפתור יציאה
+	sf::RectangleShape exitButton(sf::Vector2f(150.f,100.f)); // גודל הכפתור 250x200
+	exitButton.setFillColor(sf::Color::Green);  // צבע אדום כהה (לפי העדפה שלך)
 
-	// create new button.
-	sf::Sprite ExitSprite(m_sfmlManager.getTexture(ObjName::E_Exit));
-	Button button(sf::Vector2f(10, 10), ExitSprite, ObjName::E_Exit);
+	// חישוב מיקום הכפתור
+	float buttonX = m_window.getSize().x * 4 / 5;  // 4/5 מהרחב, בחלק האחרון של הציר X
+	float buttonY = m_window.getSize().y * 3 / 4;  // 3/4 מהגובה, בחלק האחרון של הציר Y
+	exitButton.setPosition(buttonX, buttonY);  // מיקום הכפתור
+
+	// יצירת אובייקט כפתור
+	Button button(exitButton, ObjName::E_Exit, m_sfmlManager);
 
 	while (m_window.isOpen())
 	{
@@ -173,17 +210,18 @@ void FirstWindow::showHelp(sf::Text& text)
 			if (event.type == sf::Event::MouseButtonPressed)
 			{
 				sf::Vector2f location = { float(event.mouseButton.x), float(event.mouseButton.y) };
-				if (button.userPressOnTheButton(location))
-					return;
+				if (button.userPressOnTheButton(location))  // אם לחצו על הכפתור
+					return; // סיים את הפעולה (כפתור נלחץ)
 			}
 		}
 
 		m_window.clear();
-		m_window.draw(text);
-		button.draw(m_window);
+		m_window.draw(text);   // מציירים את הטקסט
+		button.draw(m_window); // מציירים את הכפתור
 		m_window.display();
 	}
 }
+
 
 void FirstWindow::wrapText(sf::Text& text, float maxWidth)
 {
