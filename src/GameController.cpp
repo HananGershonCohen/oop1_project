@@ -221,21 +221,38 @@ void GameController::draw(sf::RenderWindow& window)
 {
 	window.clear();
 
+	sf::Sprite tile(m_SfmlManager.getTexture(ObjName::Tile));
+	tile.setScale(0.05f, 0.05f);
+	for (int i = 0; i < m_width; i++)
+	{
+		for (int j = 0; j < m_height; j++)
+		{
+			tile.setPosition(i * Data::pixelSize, j * Data::pixelSize);
+			window.draw(tile);
+		}
+	}
+
+	// ציור של האובייקטים המניעים
 	for (const auto& obj : m_movingObjVec) {
 		obj->draw(window);
 	}
+
+	// ציור של האובייקטים הסטטיים
 	for (const auto& obj : m_staticObjVec) {
 		obj->draw(window);
 	}
 
+	// ציור של הפצצות
 	for (auto& bomb : m_BombVec) {
 		bomb->draw(window); // Replace sprite to fire 
-
 	}
+
+	// ציור של המידע
 	m_information.draw(window);
 
 	window.display();
 }
+
 //--------------------------------------------------
 void GameController::handleEvent()
 {

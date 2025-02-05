@@ -19,6 +19,7 @@ enum ObjName
     E_Gift2,
     E_Gift3,
     E_Gift4,
+    Tile
 };
 
 enum Snd

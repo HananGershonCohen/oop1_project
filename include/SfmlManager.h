@@ -33,6 +33,7 @@ private:
 	sf::Texture m_Temp;
 	sf::Texture m_Bomb;
 	sf::Texture m_Fire;
+	sf::Texture m_TileTex;
 	sf::Texture m_Gift1;
 	sf::Texture m_Gift2;
 	sf::Texture m_Gift3;

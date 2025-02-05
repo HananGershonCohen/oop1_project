@@ -52,6 +52,9 @@ SfmlManager::SfmlManager()
 	if (!m_Gift4.loadFromFile("Present4.png"))
 		std::cerr << "Failed to load Present4.png\n";
 
+	if (!m_TileTex.loadFromFile("tile.png"))
+		std::cerr << "Failed to load tile.png\n";
+
 	if (!m_hurtSnd.loadFromFile("hurt.wav"))
 		std::cerr << "Failed to load hurt.wav\n";
 
@@ -115,8 +118,9 @@ sf::Texture& SfmlManager::getTexture(ObjName objName)
 	case E_Gift4:
 		return m_Gift4;
 		break;
-
-
+	case Tile:
+		return m_TileTex;
+		break;
 
 	default:
 		std::cerr << "Error: ObjName not found\n";
