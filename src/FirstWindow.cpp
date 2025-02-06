@@ -6,7 +6,8 @@
 #include <chrono>
 
 FirstWindow::FirstWindow(SfmlManager& sfmlMan)
-	: Windows(15, 15), m_sfmlManager{ sfmlMan }
+	: m_sfmlManager{ sfmlMan }, m_height(15*Data::pixelSize) ,m_width( 15 * Data::pixelSize),
+	m_window(sf::VideoMode(m_width, m_height), "First Window")
 {
 	// חישוב המידות של הכפתורים
 	float buttonWidth = m_width / 1.5;   // רוחב הכפתור יהיה חצי מרוחב החלון

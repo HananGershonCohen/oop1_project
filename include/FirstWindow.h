@@ -5,7 +5,7 @@
 #include <vector>
 #include"SfmlManager.h"
 
-class FirstWindow : public Windows
+class FirstWindow //: public Windows
 {
 public:
 	FirstWindow(SfmlManager&);// =15 for default size of window
@@ -17,12 +17,16 @@ public:
 
 private:
 	//--- data members----
+	const unsigned int m_pixelSize = 50;
 	SfmlManager& m_sfmlManager;
 	ObjName m_objName{};
 	sf::Music m_menuSnd;
 	std::vector<Button> m_buttons;
 	bool m_need2exit = false;
 	bool m_need2start = false;
+	unsigned int m_height;
+	unsigned int m_width;
+	sf::RenderWindow m_window;
 
 	//--- functions----
 	sf::Text readHelpFromFile()const;
