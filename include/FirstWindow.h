@@ -5,7 +5,7 @@
 #include <vector>
 #include"SfmlManager.h"
 
-class FirstWindow //: public Windows
+class FirstWindow
 {
 public:
 	FirstWindow(SfmlManager&);// =15 for default size of window
